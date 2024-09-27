@@ -11,18 +11,20 @@ import {
   Tooltip,
   Text,
   Input,
+  Slider,
 } from '@sparrowengg/twigs-react';
 import Header from './components/Header';
-import { PauseIcon, PlayIcon } from './Icons';
+import { PauseIcon, PlayIcon } from './components/Icons';
+import ProgressBar from './components/ProgressBar';
 
 const formatTime = (timeInSeconds) => {
-  const hours = Math.floor(timeInSeconds / 3600)
+  const hours = Math.round(timeInSeconds / 3600)
     .toString()
     .padStart(2, '0');
-  const minutes = Math.floor((timeInSeconds % 3600) / 60)
+  const minutes = Math.round((timeInSeconds % 3600) / 60)
     .toString()
     .padStart(2, '0');
-  const seconds = Math.floor(timeInSeconds % 60)
+  const seconds = Math.round(timeInSeconds % 60)
     .toString()
     .padStart(2, '0');
 
@@ -54,9 +56,9 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
 
   const handleProgress = (state) => {
     if (!controls.seeking) {
-      console.log(state.played);
+      console.log(document.getElementById('video-player-progress'));
 
-      setControls((prev) => ({ ...prev, played: state.played }));
+      document.getElementById('video-player-progress').value = state.played;
       if (state.played === 1) {
         setControls((prev) => ({ ...prev, playing: false }));
       }
@@ -72,7 +74,11 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
   };
 
   const handleSeekChange = (e) => {
-    setControls((prev) => ({ ...prev, played: parseFloat(e.target.value) }));
+    document.getElementById('video-player-progress').value = parseFloat(
+      e.target.value
+    );
+
+    // setControls((prev) => ({ ...prev, played: parseFloat(e.target.value) }));
   };
 
   const handleSeekMouseUp = (e) => {
@@ -96,6 +102,8 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
 
     setInterval(getCurrentImage, 100);
   });
+
+  const valueRef = React.useRef(0);
 
   return (
     <Dialog open={open}>
@@ -137,6 +145,7 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
                 },
               }}
               onProgress={handleProgress}
+              progressInterval={10}
               {...controls}
             />
             <Box
@@ -180,51 +189,83 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
                 flexShrink: 0,
               }}
             />
-            <Box
-              as="input"
-              type="range"
-              min={0}
-              max={0.999999}
-              step="any"
+            {/* <ProgressBar
               value={controls?.played}
               onMouseDown={handleSeekMouseDown}
               onChange={handleSeekChange}
               onMouseUp={handleSeekMouseUp}
+            /> */}
+            <Box
               css={{
-                '-webkit-appearance': 'none',
-                background: 'transparent',
                 width: '100%',
-                cursor: 'pointer',
-                '&::-webkit-slider-runnable-track': {
-                  height: '6px',
-                  borderRadius: '30px',
-                  background: '$white500',
-                },
-                '&::-moz-range-track': {
-                  height: '6px',
-                  borderRadius: '30px',
-                  background: '$white500',
-                },
-
-                '&::-webkit-slider-thumb': {
-                  '-webkit-appearance': 'none',
-                  appearance: 'none',
-                  height: '6px',
-                  width: '6px',
-                  borderRadius: '30px',
-                  background: '$white800',
-                },
-
-                '&::-moz-range-thumb': {
-                  border: 'none',
-                  borderRadius: 0,
-                  height: '6px',
-                  width: '6px',
-                  borderRadius: '30px',
-                  background: '$white800',
-                },
+                position: 'relative',
               }}
-            />
+            >
+              <Box
+                as="input"
+                type="range"
+                id="video-player-progress"
+                min={0}
+                max={0.999999}
+                step="0.000001"
+                // value={0}
+                onMouseDown={handleSeekMouseDown}
+                onChange={handleSeekChange}
+                onMouseUp={handleSeekMouseUp}
+                css={{
+                  '-webkit-appearance': 'none',
+                  width: '100%',
+                  background: 'transparent',
+                  cursor: 'pointer',
+
+                  '&::-webkit-slider-runnable-track': {
+                    height: '6px',
+                    borderRadius: '30px',
+                    background: '$white500',
+                  },
+                  '&::-moz-range-track': {
+                    height: '6px',
+                    borderRadius: '30px',
+                    background: '$white500',
+                  },
+
+                  '&::-webkit-slider-thumb': {
+                    '-webkit-appearance': 'none',
+                    appearance: 'none',
+                    height: '6px',
+                    width: '6px',
+                    background: '$white800',
+                    borderRadius: '30px',
+                    '&:hover': {
+                      boxShadow: '0px 0px 0px 6px rgba(0, 0, 0, 0.60)',
+                    },
+                  },
+                  '&::-moz-range-thumb': {
+                    border: 'none',
+                    borderRadius: 0,
+                    height: '6px',
+                    width: '6px',
+                    marginTop: '-1px',
+                    borderRadius: '30px',
+                    background: '$white800',
+                    '&:hover': {
+                      boxShadow: '0px 0px 0px 6px rgba(0, 0, 0, 0.60)',
+                    },
+                  },
+                }}
+              />
+              <Box
+                css={{
+                  position: 'absolute',
+                  top: '50%',
+                  width: 'calc(100% - 700px)',
+                  height: '6px',
+                  borderRadius: '30px',
+                  background: '$white800',
+                }}
+              />
+            </Box>
+
             <Flex shrink={0} css={{ paddingLeft: '$2' }}>
               <Text as="h4" weight="bold" css={{ color: '$white900' }}>
                 {formatTime(videoRef.current?.getCurrentTime())}&nbsp;
