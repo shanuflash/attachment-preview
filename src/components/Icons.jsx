@@ -1,4 +1,4 @@
-const PlayIcon = (size) => (
+const PlayIcon = ({ size = 24 }) => (
   <svg
     width={size}
     height={size}

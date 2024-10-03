@@ -71,8 +71,8 @@ function App() {
           uploadedAt: '2024-09-20T06:03:42.986Z',
           name: 'Sample-pdf.pdf',
           // src: 'https://www.aeee.in/wp-content/uploads/2020/08/Sample-pdf.pdf',
-          // src: 'https://ss-staging-public.s3.amazonaws.com/temp-pdfs/Sample-pdf+Password.pdf',
-          src: 'https://ss-staging-public.s3.amazonaws.com/temp-pdfs/ilovepdf_merged.pdf',
+          src: 'https://ss-staging-public.s3.amazonaws.com/temp-pdfs/Sample-pdf+Password.pdf',
+          // src: 'https://ss-staging-public.s3.amazonaws.com/temp-pdfs/ilovepdf_merged.pdf',
           size: 12456,
         }}
         open={open.pdf}
@@ -84,10 +84,11 @@ function App() {
           uploadedAt: '2024-09-20T06:03:42.986Z',
           name: 'sample video.mp4',
           // src: 'https://vaibhav1663.github.io/Youtube-Ambient-Mode/demo-video.mp4',
-          src: 'https://s3-figma-videos-production-sig.figma.com/video/869838795205329595/TEAM/ebf4/434e/-4380-471f-9798-8bfcfcd5349c?Expires=1728259200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=MMeaWZQiwkQ-c-qPRlwNZKHqZ35wNYh1sR8ymFK6uJK7f8~RwL1-U-nQAAsRVWJdTNkrve4mkvFTRG-qO8udozZgEWGZOL4MqvlftRMgRuh-hGO2NaZvezKC8Q9wRiaKC9PMuM6L3QQHUUE5~YvJxxlU1pGZWnEvoUgc98ecmzV7kwTFamO6AMt-vGBBMwDhHttbQ4RcszoSYGWVd5~d8bDID7~WNu6y2D4oXBJy256qntsSKAoFcYDO7ShTZSURvAZNNtV00bc~WXiGVn6Dsg2IZkl3rKhbndarncbKgIZ2P57RpkdG912oPt-qQtHDGJTSCFPwYeE29NmHxQjNMw__',
+          // src: 'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_10mb.mp4',
+          // src: 'https://s3-figma-videos-production-sig.figma.com/video/869838795205329595/TEAM/ebf4/434e/-4380-471f-9798-8bfcfcd5349c?Expires=1728259200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=MMeaWZQiwkQ-c-qPRlwNZKHqZ35wNYh1sR8ymFK6uJK7f8~RwL1-U-nQAAsRVWJdTNkrve4mkvFTRG-qO8udozZgEWGZOL4MqvlftRMgRuh-hGO2NaZvezKC8Q9wRiaKC9PMuM6L3QQHUUE5~YvJxxlU1pGZWnEvoUgc98ecmzV7kwTFamO6AMt-vGBBMwDhHttbQ4RcszoSYGWVd5~d8bDID7~WNu6y2D4oXBJy256qntsSKAoFcYDO7ShTZSURvAZNNtV00bc~WXiGVn6Dsg2IZkl3rKhbndarncbKgIZ2P57RpkdG912oPt-qQtHDGJTSCFPwYeE29NmHxQjNMw__',
           // src: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4',
           // src: 'https://www.youtube.com/watch?v=wDchsz8nmbo',
-          // src: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/4678261-hd_1080_1920_25fps.mp4',
+          src: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/4678261-hd_1080_1920_25fps.mp4',
           size: 12456,
         }}
         open={open.video}

@@ -38,7 +38,7 @@ const Header = ({ currentData = {}, onClose = () => {} }) => {
       id="image-viewer-header"
       justifyContent="space-between"
       css={{
-        zIndex: 3,
+        zIndex: 6,
         height: '$18',
         padding: '$8',
         width: '100%',
@@ -82,15 +82,12 @@ const Header = ({ currentData = {}, onClose = () => {} }) => {
                 color: '$neutral900',
                 minWidth: '264px',
                 maxWidth: '264px',
-                '& > span:not([role="tooltip"])': {
-                  left: '10% !important',
-                },
                 '& > span:not([role="tooltip"]) > svg': {
                   fill: '$white900',
                 },
               }}
               side="bottom"
-              align="center"
+              align="start"
               sideOffset={4}
               content={
                 <Flex gap="$2" flexDirection="column">

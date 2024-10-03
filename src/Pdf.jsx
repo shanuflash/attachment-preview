@@ -15,6 +15,7 @@ import {
 } from '@sparrowengg/twigs-react';
 import Header from './components/Header';
 import { useInView } from 'react-intersection-observer';
+import PasswordModal from './components/PasswordModal';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -56,6 +57,7 @@ const Pdf = ({ open, data, onClose }) => {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [loading, setLoading] = React.useState(true);
   const [passwordModal, setPasswordModal] = React.useState(false);
+  const [passwordError, setPasswordError] = React.useState(false);
 
   const onDocumentLoadSuccess = ({ numPages: nextNumPages }) => {
     setNumPages(nextNumPages);
@@ -71,6 +73,12 @@ const Pdf = ({ open, data, onClose }) => {
     if (!open) return;
     setCurrentData(data);
   }, [data, open]);
+
+  React.useEffect(() => {
+    if (!open) return;
+    const thumbnail = document?.getElementById(`pdf-thumbnail-${pageNumber}`);
+    thumbnail?.scrollIntoView({ block: 'nearest' });
+  }, [pageNumber, open]);
 
   return (
     <Dialog open={open}>
@@ -104,41 +112,22 @@ const Pdf = ({ open, data, onClose }) => {
               background: '$black700',
             }}
           />
+          <PasswordModal
+            {...{
+              passwordModal,
+              setPasswordModal,
+              passwordRef,
+              passwordError,
+              setPasswordError,
+              onClose,
+            }}
+          />
           <Header currentData={data} onClose={onClose} />
           <Flex
             alignItems="center"
             flexDirection="column"
             css={{ width: '100%' }}
           >
-            {passwordModal && (
-              <Flex
-                alignItems="center"
-                justifyContent="center"
-                css={{
-                  zIndex: 2,
-                  position: 'absolute',
-                  width: '100%',
-                  height: '100%',
-                  background: '$black900',
-                }}
-              >
-                Password protected
-                <Input
-                  type="password"
-                  onChange={(e) => {
-                    passwordRef.current.value = e.target.value;
-                  }}
-                />
-                <Button
-                  onClick={() => {
-                    setPasswordModal(false);
-                    passwordRef.current.callback(passwordRef.current.value);
-                  }}
-                >
-                  Submit
-                </Button>
-              </Flex>
-            )}
             <Box
               css={{
                 position: 'relative',
@@ -169,14 +158,13 @@ const Pdf = ({ open, data, onClose }) => {
                 error="Failed to load PDF"
                 onPassword={(callback, reason) => {
                   setPasswordModal(true);
+                  console.log(passwordRef.current.callback);
                   passwordRef.current.callback = callback;
-                  console.log('password prt, reason:', reason);
                   if (reason === 1) {
                     console.log('need password');
                   } else if (reason === 2) {
-                    console.log('incorrect password');
+                    setPasswordError(true);
                   }
-                  // console.log('password', callback);
                 }}
                 loading={
                   <Flex
@@ -206,6 +194,8 @@ const Pdf = ({ open, data, onClose }) => {
                     gap="$12"
                     css={{
                       padding: '$44 $16 0 $16',
+                      scrollPaddingTop: '$44',
+                      scrollPaddingBottom: '$10',
                       overflowY: 'scroll',
                       scrollbarWidth: 'none',
                       '&::-webkit-scrollbar': {
@@ -215,6 +205,7 @@ const Pdf = ({ open, data, onClose }) => {
                   >
                     {Array.from(new Array(numPages), (_el, index) => (
                       <Flex
+                        id={`pdf-thumbnail-${index + 1}`}
                         flexDirection="column"
                         alignItems="center"
                         gap="$3"
