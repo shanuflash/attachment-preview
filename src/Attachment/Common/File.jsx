@@ -14,7 +14,7 @@ import {
   PlayFillIcon,
 } from '@sparrowengg/twigs-react-icons';
 import React, { useState, useEffect } from 'react';
-import { AttachmentIcons } from '../../../components/Icons';
+import { AttachmentIcons } from '../../components/Icons';
 
 const getFileIcon = (attachment) => {
   switch (attachment?.type) {

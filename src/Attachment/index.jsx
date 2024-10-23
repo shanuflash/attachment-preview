@@ -19,7 +19,7 @@ import Pdf from './Preview/Pdf';
 import Video from './Preview/Video';
 import Audio from './Preview/Audio';
 import SingleAttachmentThumbnail from './SingleType';
-import File from './SingleType/Components/File';
+import File from './Common/File';
 import Videos from './SingleType/Components/Videos';
 import MultipleTypeAttachment from './MultipleType';
 

@@ -1,5 +1,6 @@
 import { Flex } from '@sparrowengg/twigs-react';
-import { File, Videos } from '../SingleType/Components';
+import { Videos } from '../SingleType/Components';
+import File from '../Common/File';
 
 const MultipleTypeAttachment = ({
   attachments,

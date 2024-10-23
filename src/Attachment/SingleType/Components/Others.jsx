@@ -1,5 +1,5 @@
 import { Flex } from '@sparrowengg/twigs-react';
-import File from './File';
+import File from '../../Common/File';
 
 const Others = ({ data = [], setCurrentData, setOpen }) => {
   return (

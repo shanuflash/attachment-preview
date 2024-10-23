@@ -197,10 +197,10 @@ const otherFiles = [
 ];
 
 const testAttachments = [
-  // ...testImages,
-  // ...testVideos,
+  ...testImages,
+  ...testVideos,
   ...testAudios,
-  // ...otherFiles,
+  ...otherFiles,
 ];
 
 function App() {
