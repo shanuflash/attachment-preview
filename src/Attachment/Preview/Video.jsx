@@ -12,32 +12,38 @@ import {
   Text,
   Input,
 } from '@sparrowengg/twigs-react';
-import Header from './components/Header';
-import { PauseIcon, PlayIcon } from './components/Icons';
-import ProgressBar from './components/ProgressBar';
+import Header from '../../components/Header';
+import { PauseIcon, PlayIcon } from '../../components/Icons';
+import ProgressBar from '../../components/ProgressBar';
 
-const formatTime = (timeInSeconds) => {
-  const hours = Math.round(timeInSeconds / 3600)
-    .toString()
-    .padStart(2, '0');
-  const minutes = Math.round((timeInSeconds % 3600) / 60)
-    .toString()
-    .padStart(2, '0');
-  const seconds = Math.round(timeInSeconds % 60)
-    .toString()
-    .padStart(2, '0');
+export const formatTime = (seconds) => {
+  if (seconds === 0) return 0;
 
-  if (seconds === 'NaN') return '00:00';
+  const hours = Math.floor(seconds / 3600)
+    .toString()
+    .padStart(2, '0');
+  const minutes = Math.floor((seconds % 3600) / 60)
+    .toString()
+    .padStart(2, '0');
+  const secs = Math.round(seconds % 60)
+    .toString()
+    .padStart(2, '0');
 
   if (hours > 0) {
-    return `${hours}:${minutes}:${seconds}`;
+    return `${hours}:${minutes}:${secs}`;
   } else {
-    return `${minutes}:${seconds}`;
+    return `${minutes}:${secs}`;
   }
 };
 
 const Video = ({ data = {}, open = false, onClose = () => {} }) => {
   const videoRef = React.useRef(null);
+  const seekRef = React.useRef(null);
+  const valueRef = React.useRef({
+    duration: 0,
+    playedSeconds: 0,
+  });
+
   const [controls, setControls] = React.useState({
     playing: true,
     played: 0,
@@ -58,6 +64,9 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
     duration: 0,
     seeking: false,
   });
+  const [loading, setLoading] = React.useState(true);
+  const [buffering, setBuffering] = React.useState(false);
+  const [error, setError] = React.useState(false);
 
   const handlePlayPause = () => {
     setControls((prev) => ({ ...prev, playing: !prev.playing }));
@@ -88,12 +97,6 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
 
     setInterval(getCurrentImage, 100);
   });
-
-  const valueRef = React.useRef({
-    duration: 0,
-    playedSeconds: 0,
-  });
-  const seekRef = React.useRef(null);
 
   const handleSeek = (e) => {
     setControls((prev) => ({ ...prev, seeking: true }));
@@ -189,9 +192,57 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
               },
             }}
           >
+            {loading && (
+              <Flex
+                id="image-viewer-loader"
+                alignItems="center"
+                justifyContent="center"
+                css={{
+                  position: 'absolute',
+                  zIndex: 3,
+                  height: '100%',
+                  width: '100%',
+                  backgroundColorOpacity: ['$black900', 0.4],
+                }}
+              >
+                <CircleLoader color="bright" size="3xl" />
+              </Flex>
+            )}
+            {buffering && (
+              <Flex
+                id="image-viewer-buffer"
+                alignItems="center"
+                justifyContent="center"
+                css={{
+                  position: 'absolute',
+                  zIndex: 3,
+                  height: '100%',
+                  width: '100%',
+                  backgroundColorOpacity: ['$black900', 0.1],
+                }}
+              >
+                <CircleLoader color="bright" size="3xl" />
+              </Flex>
+            )}
+            {error && (
+              <Flex
+                id="image-viewer-error"
+                alignItems="center"
+                justifyContent="center"
+                css={{
+                  position: 'absolute',
+                  zIndex: 3,
+                  height: '100%',
+                  width: '100%',
+                  backgroundColorOpacity: ['$black900', 0.5],
+                }}
+              >
+                Error loading video
+              </Flex>
+            )}
             <ReactPlayer
               ref={videoRef}
-              url={data?.src}
+              url={data?.url}
               config={{
                 file: {
                   attributes: {
@@ -199,6 +250,13 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
                     id: 'video-player-src',
                   },
                 },
+              }}
+              onReady={() => setLoading(false)}
+              onBuffer={() => setBuffering(true)}
+              onBufferEnd={() => setBuffering(false)}
+              onError={() => {
+                setLoading(false);
+                setError(true);
               }}
               onProgress={handleProgress}
               onDuration={(duration) => {
@@ -263,7 +321,9 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
                 as="h4"
                 weight="bold"
                 css={{ color: '$white900' }}
-              />
+              >
+                00:00
+              </Text>
               <Text as="h4" weight="medium" css={{ color: '$white800' }}>
                 / {formatTime(videoRef.current?.getDuration())}
               </Text>

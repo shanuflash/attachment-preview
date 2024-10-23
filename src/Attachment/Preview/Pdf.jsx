@@ -13,9 +13,9 @@ import {
   Text,
   Button,
 } from '@sparrowengg/twigs-react';
-import Header from './components/Header';
+import Header from '../../components/Header';
 import { useInView } from 'react-intersection-observer';
-import PasswordModal from './components/PasswordModal';
+import PasswordModal from '../../components/PasswordModal';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -35,7 +35,6 @@ const PageWrapper = ({
 
   useEffect(() => {
     if (!inView && loading) return;
-    console.log('Page in view:', pageNumber);
     setPageNumber(pageNumber);
   }, [loading, pageNumber, inView]);
 
@@ -52,7 +51,6 @@ const Pdf = ({ open, data, onClose }) => {
     callback: () => {},
   });
 
-  const [currentData, setCurrentData] = React.useState(null);
   const [numPages, setNumPages] = React.useState();
   const [pageNumber, setPageNumber] = React.useState(1);
   const [loading, setLoading] = React.useState(true);
@@ -63,16 +61,6 @@ const Pdf = ({ open, data, onClose }) => {
     setNumPages(nextNumPages);
     setLoading(false);
   };
-
-  // const handlePassword = (callback) => {
-  //   dialogs.open({
-
-  // };
-
-  React.useEffect(() => {
-    if (!open) return;
-    setCurrentData(data);
-  }, [data, open]);
 
   React.useEffect(() => {
     if (!open) return;
@@ -151,20 +139,13 @@ const Pdf = ({ open, data, onClose }) => {
               }}
             >
               <Document
-                file={currentData?.src}
-                onLoadSuccess={(numPages) => {
-                  onDocumentLoadSuccess(numPages);
-                }}
+                file={data?.url}
+                onLoadSuccess={onDocumentLoadSuccess}
                 error="Failed to load PDF"
                 onPassword={(callback, reason) => {
                   setPasswordModal(true);
-                  console.log(passwordRef.current.callback);
                   passwordRef.current.callback = callback;
-                  if (reason === 1) {
-                    console.log('need password');
-                  } else if (reason === 2) {
-                    setPasswordError(true);
-                  }
+                  if (reason === 2) setPasswordError(true);
                 }}
                 loading={
                   <Flex

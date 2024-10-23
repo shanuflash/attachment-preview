@@ -15,21 +15,26 @@ import {
   CloseIcon,
   DownloadIcon,
 } from '@sparrowengg/twigs-react-icons';
-import Avatar from './components/Avatar';
-import ReactTimeAgo from 'react-time-ago';
+import Avatar from '../../components/Avatar';
+// import ReactTimeAgo from 'react-time-ago';
 import moment from 'moment-timezone';
-import Header from './components/Header';
+import Header from '../../components/Header';
 
-const Image = ({ data = [], open = false, onClose = () => {} }) => {
+const Image = ({ data = [], active = 0, open = false, onClose = () => {} }) => {
   const containerRef = React.useRef(null);
   const imageRef = React.useRef(null);
   const [currentData, setCurrentData] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
 
+  // React.useEffect(() => {
+  //   if (!open) return;
+  //   setCurrentData(data[0]);
+  // }, [data, open]);
+
   React.useEffect(() => {
     if (!open) return;
-    setCurrentData(data[0]);
-  }, [data, open]);
+    setCurrentData(data.find((data) => data.id === active.id));
+  }, [active, open]);
 
   const setImageScale = () => {
     if (!containerRef.current || !imageRef.current) return;
@@ -42,7 +47,9 @@ const Image = ({ data = [], open = false, onClose = () => {} }) => {
 
   const { prevImageExists, nextImageExists, prevImageIndex, nextImageIndex } =
     React.useMemo(() => {
-      const currentIndex = data.indexOf(currentData);
+      const currentIndex = data.findIndex(
+        (data) => data?.id === currentData?.id
+      );
       const prevIndex = currentIndex - 1;
       const nextIndex = currentIndex + 1;
       return {
@@ -51,7 +58,15 @@ const Image = ({ data = [], open = false, onClose = () => {} }) => {
         prevImageIndex: prevIndex,
         nextImageIndex: nextIndex,
       };
-    }, [currentData, data]);
+    }, [currentData?.id, data]);
+
+  console.log(
+    ' prevImageExists, nextImageExists, prevImageIndex, nextImageIndex ',
+    prevImageExists,
+    nextImageExists,
+    prevImageIndex,
+    nextImageIndex
+  );
 
   return (
     <Dialog open={open}>
@@ -102,7 +117,7 @@ const Image = ({ data = [], open = false, onClose = () => {} }) => {
             onLoad={setImageScale}
             onError={() => {}}
             ref={imageRef}
-            src={currentData?.src}
+            src={currentData?.url}
             css={{ zIndex: 2, userSelect: 'none' }}
           />
 
@@ -111,7 +126,7 @@ const Image = ({ data = [], open = false, onClose = () => {} }) => {
             css={{
               zIndex: 1,
               position: 'absolute',
-              background: `url(${currentData?.src})`,
+              background: `url(${currentData?.url})`,
               pointerEvents: 'none',
               filter: 'blur(40px) brightness(.4)',
               backgroundColor: '#000',
