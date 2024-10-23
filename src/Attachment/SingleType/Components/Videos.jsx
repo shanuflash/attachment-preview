@@ -1,6 +1,6 @@
 import { Box, Flex } from '@sparrowengg/twigs-react';
 import { PlayFillIcon } from '@sparrowengg/twigs-react-icons';
-import Skeleton from './Skeleton';
+import Skeleton from '../../Common/Skeleton';
 
 const Videos = ({
   data = [],
