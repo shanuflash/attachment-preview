@@ -1,4 +1,5 @@
 import { Box, Flex, Text } from '@sparrowengg/twigs-react';
+import ImageLoader from '../../Common/ImageLoader';
 
 const Images = ({ data = [], setCurrentData = () => {}, setOpen }) => {
   return (
@@ -7,18 +8,10 @@ const Images = ({ data = [], setCurrentData = () => {}, setOpen }) => {
         const isLastImage = index === 3 && data.length > 4;
         return (
           <Box css={{ position: 'relative', height: '$20', width: '$25' }}>
-            <Box
-              as="img"
-              onError={() => {}}
+            <ImageLoader
+              height="$20"
+              width="$25"
               src={attachment?.url}
-              css={{
-                objectFit: 'cover',
-                height: '$20',
-                width: '$25',
-                borderRadius: '$lg',
-                userSelect: 'none',
-                cursor: 'pointer',
-              }}
               onClick={() => {
                 setCurrentData(attachment);
                 setOpen((prev) => ({ ...prev, image: true }));

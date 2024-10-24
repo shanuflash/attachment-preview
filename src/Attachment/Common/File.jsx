@@ -16,49 +16,7 @@ import {
 import React, { useState, useEffect, useCallback } from 'react';
 import { AttachmentIcons } from './Icons';
 import { motion } from 'framer-motion';
-
-const ImageLoader = ({ src, width, height }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const img = new Image();
-    img.src = src;
-    img.onload = () => {
-      setIsLoading(false);
-    };
-  }, [src]);
-
-  return (
-    <Box
-      css={{
-        width,
-        height,
-        position: 'relative',
-        overflow: 'hidden',
-        backgroundColor: '#e5e7eb',
-        borderRadius: '$lg',
-      }}
-    >
-      <motion.div
-        initial={{ filter: `blur(10px)` }}
-        animate={{ filter: isLoading ? `blur(10px)` : 'blur(0px)' }}
-        transition={{
-          duration: 0.2,
-        }}
-      >
-        <Box
-          as="img"
-          src={src}
-          css={{
-            width: width,
-            height: height,
-            objectFit: 'cover',
-          }}
-        />
-      </motion.div>
-    </Box>
-  );
-};
+import ImageLoader from './ImageLoader';
 
 const getFileIcon = (attachment) => {
   switch (attachment?.type) {

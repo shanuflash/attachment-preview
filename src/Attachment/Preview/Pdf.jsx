@@ -219,7 +219,11 @@ const Pdf = ({ open, data, onClose }) => {
                             setPageNumber(pageNumber);
                           }}
                         />
-                        <Text as="h4" weight="bold">
+                        <Text
+                          as="h4"
+                          weight="bold"
+                          css={{ color: '$white900' }}
+                        >
                           {index + 1}
                         </Text>
                       </Flex>
