@@ -13,9 +13,9 @@ import {
   Text,
   Button,
 } from '@sparrowengg/twigs-react';
-import Header from '../../components/Header';
+import Header from './Components/Header';
 import { useInView } from 'react-intersection-observer';
-import PasswordModal from '../../components/PasswordModal';
+import PasswordModal from './Components/PasswordModal';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',

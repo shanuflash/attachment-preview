@@ -23,6 +23,9 @@ import File from './Common/File';
 import Videos from './SingleType/Components/Videos';
 import MultipleTypeAttachment from './MultipleType';
 
+import { motion, AnimatePresence } from 'framer-motion';
+import { DownFilledArrowIcon } from './Common/Icons';
+
 const createThumbnail = async ({ url }) => {
   const width = 320;
   const height = 180;
@@ -56,8 +59,9 @@ const createThumbnail = async ({ url }) => {
   });
 };
 
-const Attachment = ({ files = [] }) => {
+const Attachment = ({ files = [], collapsible = false }) => {
   const [attachments, setAttachments] = useState([]);
+  const [isOpen, setIsOpen] = useState(true);
   const [videoThumbnails, setVideoThumbnails] = useState([]);
 
   const [open, setOpen] = React.useState({
@@ -137,22 +141,63 @@ const Attachment = ({ files = [] }) => {
   }, [attachments?.videos]);
 
   return (
-    <Flex className="sparrow-attachments" gap="$6" flexDirection="column">
-      {isSingleAttachment ? (
-        <SingleAttachmentThumbnail
-          type={isSingleAttachment}
-          {...{
-            attachments,
-            videoThumbnails,
-            setCurrentData,
-            setOpen,
-          }}
-        />
-      ) : (
-        <MultipleTypeAttachment
-          {...{ attachments, videoThumbnails, setCurrentData, setOpen }}
-        />
+    <Flex className="sparrow-attachments" gap="$2" flexDirection="column">
+      {collapsible && (
+        <Flex onClick={() => setIsOpen(!isOpen)} css={{ cursor: 'pointer' }}>
+          <Text
+            as="h4"
+            size="xs"
+            weight="medium"
+            css={{
+              color: '$neutral700',
+            }}
+          >
+            {files.length === 1 ? files[0].name : `${files?.length} files`}
+          </Text>
+          <Flex
+            className="arrow"
+            css={{
+              display: 'inline-flex',
+              transition: 'transform 0.1s ease',
+              transform: isOpen ? 'rotate(0deg)' : 'rotate(-90deg)',
+            }}
+          >
+            <DownFilledArrowIcon />
+          </Flex>
+        </Flex>
       )}
+
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.section
+            key="content"
+            initial="collapsed"
+            animate="open"
+            exit="collapsed"
+            variants={{
+              open: { opacity: 1, height: 'auto' },
+              collapsed: { opacity: 0, height: 0 },
+            }}
+            transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
+          >
+            {isSingleAttachment ? (
+              <SingleAttachmentThumbnail
+                type={isSingleAttachment}
+                {...{
+                  attachments,
+                  videoThumbnails,
+                  setCurrentData,
+                  setOpen,
+                }}
+              />
+            ) : (
+              <MultipleTypeAttachment
+                {...{ attachments, videoThumbnails, setCurrentData, setOpen }}
+              />
+            )}
+          </motion.section>
+        )}
+      </AnimatePresence>
 
       <>
         {open?.image && (

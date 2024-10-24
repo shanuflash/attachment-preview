@@ -14,7 +14,7 @@ import {
   PlayFillIcon,
 } from '@sparrowengg/twigs-react-icons';
 import React, { useState, useEffect } from 'react';
-import { AttachmentIcons } from '../../components/Icons';
+import { AttachmentIcons } from './Icons';
 
 const getFileIcon = (attachment) => {
   switch (attachment?.type) {
@@ -104,8 +104,12 @@ const File = ({ attachment, setCurrentData, setOpen }) => {
           transition: 'opacity 0.2s ease',
         },
 
+        '&:has(.sparrow-attachments-thumbnail-actions[data-state="open"])': {
+          border: '1px solid #00000026',
+          boxShadow: '0px 4px 8px 0px #0000000D',
+        },
+
         '&:hover': {
-          transition: 'all 0.3s ease',
           border: '1px solid #00000026',
           boxShadow: '0px 4px 8px 0px #0000000D',
           '& .sparrow-attachments-thumbnail-actions': {
@@ -154,24 +158,24 @@ const File = ({ attachment, setCurrentData, setOpen }) => {
           </Box>
         </Text>
       </Flex>
-      <Flex
-        shrink={0}
-        className="sparrow-attachments-thumbnail-actions"
-        alignItems="center"
-        css={{
-          transition: 'opacity 0.3s ease',
-          opacity: '0',
-          width: '$6',
-        }}
-      >
+      <Flex alignItems="center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <IconButton
+              className="sparrow-attachments-thumbnail-actions"
+              alignItems="center"
               variant="ghost"
               color="default"
               icon={<EllipsisVerticalIcon strokeWidth={2} size={20} />}
               css={{
-                '&[data-state="open"]': {}, //fix later
+                flexShrink: 0,
+                transition: 'opacity 0.3s ease',
+                opacity: '0',
+                width: '$6',
+                '&[data-state="open"]': {
+                  opacity: '1 !important',
+                  background: '#00000014 !important',
+                },
               }}
             />
           </DropdownMenuTrigger>
@@ -179,7 +183,8 @@ const File = ({ attachment, setCurrentData, setOpen }) => {
             size="sm"
             onCloseAutoFocus={(e) => e.preventDefault()}
             align="end"
-            sideOffset={5}
+            sideOffset={4}
+            alignOffset={-4}
             css={{
               minWidth: '200px',
               maxWidth: '200px',
@@ -191,7 +196,7 @@ const File = ({ attachment, setCurrentData, setOpen }) => {
                 padding: '$2 $6 !important',
               }}
             >
-              <Text as="h4">Download {`{type}`}</Text>
+              <Text as="h4">Download File</Text>
             </DropdownMenuItem>
             {/* <DropdownMenuItem>Open in Browser</DropdownMenuItem> */}
           </DropdownMenuContent>

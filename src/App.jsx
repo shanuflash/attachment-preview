@@ -69,24 +69,38 @@ const testImages = [
 const testVideos = [
   {
     id: 'video-1',
-    name: 'demo-video.mp4',
+    name: 'sample-mp4.mp4',
     type: 'video/mp4',
-    url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/4678261-hd_1080_1920_25fps.mp4',
-    // url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/Screen+Recording+2024-10-22+at+11.56.06%E2%80%AFAM.mov',
+    url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/sample-mp4.mp4',
     created_at: '2024-09-20T06:03:42.986Z',
     properties: { size: 12456 },
-
     uploadedBy: { name: 'Michael Clark', image: '' },
   },
   {
     id: 'video-2',
-    name: 'demo-video.mp4',
+    name: 'sample-mp4-1.mp4',
     type: 'video/mp4',
-    // url: 'https://vaibhav1663.github.io/Youtube-Ambient-Mode/demo-video.mp4',
-    url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/Screen+Recording+2024-10-22+at+11.55.36%E2%80%AFAM.mov',
+    url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/sample-mp4-1.mp4',
     created_at: '2024-09-20T06:03:42.986Z',
     properties: { size: 12456 },
-
+    uploadedBy: { name: 'Michael Clark', image: '' },
+  },
+  {
+    id: 'video-3',
+    name: 'sample-mp4-2.mp4',
+    type: 'video/mp4',
+    url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/sample-mp4-2.mp4',
+    created_at: '2024-09-20T06:03:42.986Z',
+    properties: { size: 12456 },
+    uploadedBy: { name: 'Michael Clark', image: '' },
+  },
+  {
+    id: 'video-4',
+    name: 'sample-mov.mov',
+    type: 'video/quicktime',
+    url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/sample-mov.mov',
+    created_at: '2024-09-20T06:03:42.986Z',
+    properties: { size: 12456 },
     uploadedBy: { name: 'Michael Clark', image: '' },
   },
 ];
@@ -197,6 +211,15 @@ const otherFiles = [
 ];
 
 const testAttachments = [
+  // {
+  //   id: 'other-1',
+  //   name: 'Sample-pdf.pdf',
+  //   type: 'application/pdf',
+  //   url: 'https://ss-staging-public.s3.amazonaws.com/temp-pdfs/ilovepdf_merged.pdf',
+  //   created_at: '2024-09-20T06:03:42.986Z',
+  //   properties: { size: 12456 },
+  //   uploadedBy: { name: 'Michael Clark', image: '' },
+  // },
   ...testImages,
   ...testVideos,
   ...testAudios,
@@ -214,11 +237,10 @@ function App() {
         padding: '$10',
       }}
     >
-      Message Demo:
       <Flex
         flexDirection="column"
         css={{
-          padding: '$20 $10',
+          padding: '$10',
           background: '$white900',
         }}
       >
@@ -312,7 +334,7 @@ function App() {
                 }}
               />
               <Box css={{ marginTop: '$6' }}>
-                <Attachment files={testAttachments} />
+                <Attachment files={testAttachments} collapsible />
               </Box>
             </Flex>
           </Flex>
@@ -333,6 +355,7 @@ function App() {
           <Flex
             gap="8px"
             css={{
+              width: '100%',
               position: 'relative',
               zIndex: 2,
               overflow: 'hidden',

@@ -13,14 +13,14 @@ import {
   LineLoader,
   Separator,
 } from '@sparrowengg/twigs-react';
-import Header from '../../components/Header';
-import { InfoIcon, PauseIcon, PlayIcon } from '../../components/Icons';
+import Header from './Components/Header';
+import { InfoIcon, PauseIcon, PlayIcon } from '../Common/Icons';
 import { AudioVisualizer } from 'react-audio-visualize';
-import TrackBar from '../../components/TrackBar';
+import TrackBar from './Components/TrackBar';
 import { formatTime } from './Video';
-import DownloadDropdown from '../../components/DownloadDropdown';
+import DownloadDropdown from './Components/DownloadDropdown';
 import { CloseIcon } from '@sparrowengg/twigs-react-icons';
-import FileTooltip from '../../components/FileTooltip';
+import FileTooltip from './Components/FileTooltip';
 
 const defaultControls = {
   playing: false,

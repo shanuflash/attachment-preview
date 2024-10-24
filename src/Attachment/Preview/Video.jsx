@@ -12,9 +12,9 @@ import {
   Text,
   Input,
 } from '@sparrowengg/twigs-react';
-import Header from '../../components/Header';
-import { PauseIcon, PlayIcon } from '../../components/Icons';
-import ProgressBar from '../../components/ProgressBar';
+import Header from './Components/Header';
+import { PauseIcon, PlayIcon } from '../Common/Icons';
+import ProgressBar from './Components/ProgressBar';
 
 export const formatTime = (seconds) => {
   if (seconds === 0) return 0;

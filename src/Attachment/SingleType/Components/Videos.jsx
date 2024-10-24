@@ -16,7 +16,7 @@ const Videos = ({
             key={index}
             css={{
               border: '1px solid $black200',
-              borderRadius: '$lg',
+              borderRadius: '$xl',
               overflow: 'hidden',
               position: 'relative',
               height: '180px',
@@ -49,6 +49,7 @@ const Videos = ({
               alignItems="center"
               justifyContent="center"
               css={{
+                transition: 'backdrop-filter 0.2s',
                 backdropFilter: 'blur(0.5px)',
                 position: 'absolute',
                 top: 0,

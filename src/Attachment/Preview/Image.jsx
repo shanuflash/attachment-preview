@@ -15,10 +15,10 @@ import {
   CloseIcon,
   DownloadIcon,
 } from '@sparrowengg/twigs-react-icons';
-import Avatar from '../../components/Avatar';
+import Avatar from '../Common/Avatar';
 // import ReactTimeAgo from 'react-time-ago';
 import moment from 'moment-timezone';
-import Header from '../../components/Header';
+import Header from './Components/Header';
 
 const Image = ({ data = [], active = 0, open = false, onClose = () => {} }) => {
   const containerRef = React.useRef(null);

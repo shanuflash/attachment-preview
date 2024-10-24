@@ -22,6 +22,7 @@
     "@sparrowengg/twigs-react-icons": "^0.3.3",
     "@tanstack/react-virtual": "^3.10.8",
     "@wojtekmaj/react-hooks": "^1.21.0",
+    "framer-motion": "^11.11.9",
     "javascript-time-ago": "^2.5.11",
     "lexical": "^0.17.1",
     "moment": "^2.30.1",
