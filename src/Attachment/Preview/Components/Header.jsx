@@ -6,7 +6,11 @@ import ReactTimeAgo from 'react-time-ago';
 import moment from 'moment-timezone';
 import FileTooltip from './FileTooltip';
 
-const Header = ({ currentData = {}, onClose = () => {} }) => {
+const Header = ({
+  currentData = {},
+  onClose = () => {},
+  showDownload = true,
+}) => {
   const downloadSrcAsFile = (name, url) => {
     const link = document.createElement('a');
     link.href = url;
@@ -74,17 +78,19 @@ const Header = ({ currentData = {}, onClose = () => {} }) => {
         </Flex>
       </Flex>
       <Flex id="image-viewer-options" gap="$4">
-        <Tooltip content="Download" side="bottom" sideOffset={8}>
-          <IconButton
-            color="light"
-            size="lg"
-            icon={<DownloadIcon size={24} />}
-            css={{ borderRadius: '8px' }}
-            onClick={() =>
-              downloadSrcAsFile(currentData?.name, currentData?.src)
-            }
-          />
-        </Tooltip>
+        {showDownload && (
+          <Tooltip content="Download" side="bottom" sideOffset={8}>
+            <IconButton
+              color="light"
+              size="lg"
+              icon={<DownloadIcon size={24} />}
+              css={{ borderRadius: '8px' }}
+              onClick={() =>
+                downloadSrcAsFile(currentData?.name, currentData?.src)
+              }
+            />
+          </Tooltip>
+        )}
         <Tooltip content="Close" side="bottom" sideOffset={8}>
           <IconButton
             color="light"

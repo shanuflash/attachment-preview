@@ -35,7 +35,7 @@ const Unsupported = ({ data = {}, open = false, onClose = () => {} }) => {
             backgroundPosition: 'center',
           }}
         >
-          <Header {...{ currentData: data, onClose }} />
+          <Header {...{ currentData: data, onClose, showDownload: false }} />
           <Flex
             flexDirection="column"
             alignItems="center"
