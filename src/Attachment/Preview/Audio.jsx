@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Flex,
   Dialog,
@@ -37,16 +37,16 @@ const defaultControls = {
 };
 
 const AudioPlayer = ({ data = {}, open = false, onClose = () => {} }) => {
-  const interval = React.useRef(null);
+  const interval = useRef(null);
 
-  const [blob, setBlob] = React.useState();
-  const [audio] = React.useState(() => new Audio());
-  const [controls, setControls] = React.useState(defaultControls);
+  const [blob, setBlob] = useState();
+  const [audio] = useState(() => new Audio());
+  const [controls, setControls] = useState(defaultControls);
 
-  const [loading, setLoading] = React.useState(false); // true
-  const [blobLoading, setBlobLoading] = React.useState(true);
-  const [error, setError] = React.useState(false);
-  const [buffering, setBuffering] = React.useState(false);
+  const [loading, setLoading] = useState(false); // true
+  const [blobLoading, setBlobLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [buffering, setBuffering] = useState(false);
 
   const onAudioEnded = () => {
     setControls({ ...controls, playing: false });

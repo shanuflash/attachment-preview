@@ -1,9 +1,9 @@
 import { Flex, Text, Tooltip } from '@sparrowengg/twigs-react';
 import moment from 'moment';
-import React from 'react';
+import { useCallback } from 'react';
 
 const FileTooltip = ({ children, currentData }) => {
-  const formatBytes = React.useCallback(
+  const formatBytes = useCallback(
     (bytes, decimals = 2) => {
       if (!+bytes) return '0 Bytes';
 

@@ -64,7 +64,7 @@ const Attachment = ({ files = [], collapsible = false }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [videoThumbnails, setVideoThumbnails] = useState([]);
 
-  const [open, setOpen] = React.useState({
+  const [open, setOpen] = useState({
     image: false,
     pdf: false,
     video: false,
@@ -116,10 +116,10 @@ const Attachment = ({ files = [], collapsible = false }) => {
   }, [attachments]);
 
   useEffect(() => {
-    if (attachments?.videos?.length === 0) {
+    if (!attachments?.videos || attachments.videos.length === 0) {
       return;
     } else {
-      setVideoThumbnails(Array(attachments?.videos?.length).fill(null));
+      setVideoThumbnails(Array(attachments.videos.length).fill(null));
     }
 
     const fetchThumbnails = async () => {
@@ -140,10 +140,15 @@ const Attachment = ({ files = [], collapsible = false }) => {
     fetchThumbnails();
   }, [attachments?.videos]);
 
+  if (!files.length) return null;
+
   return (
-    <Flex className="sparrow-attachments" gap="$2" flexDirection="column">
+    <Flex className="sparrow-attachments" flexDirection="column">
       {collapsible && (
-        <Flex onClick={() => setIsOpen(!isOpen)} css={{ cursor: 'pointer' }}>
+        <Flex
+          onClick={() => setIsOpen(!isOpen)}
+          css={{ cursor: 'pointer', marginBottom: '$2' }}
+        >
           <Text
             as="h4"
             size="xs"

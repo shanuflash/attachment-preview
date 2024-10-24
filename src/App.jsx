@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -227,7 +227,7 @@ const testAttachments = [
 ];
 
 function App() {
-  const [attachments, setAttachments] = React.useState([]);
+  const [attachments, setAttachments] = useState([]);
 
   return (
     <Flex

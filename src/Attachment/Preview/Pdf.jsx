@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { pdfjs, Document, Page, Outline, Thumbnail } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
@@ -46,27 +46,32 @@ const PageWrapper = ({
 };
 
 const Pdf = ({ open, data, onClose }) => {
-  const passwordRef = React.useRef({
+  const passwordRef = useRef({
     value: '',
     callback: () => {},
   });
 
-  const [numPages, setNumPages] = React.useState();
-  const [pageNumber, setPageNumber] = React.useState(1);
-  const [loading, setLoading] = React.useState(true);
-  const [passwordModal, setPasswordModal] = React.useState(false);
-  const [passwordError, setPasswordError] = React.useState(false);
+  const [numPages, setNumPages] = useState();
+  const [pageNumber, setPageNumber] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [passwordModal, setPasswordModal] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   const onDocumentLoadSuccess = ({ numPages: nextNumPages }) => {
     setNumPages(nextNumPages);
     setLoading(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!open) return;
     const thumbnail = document?.getElementById(`pdf-thumbnail-${pageNumber}`);
     thumbnail?.scrollIntoView({ block: 'nearest' });
   }, [pageNumber, open]);
+
+  useEffect(() => {
+    if (loading) return;
+    setPageNumber(1);
+  }, [loading, pageNumber]);
 
   return (
     <Dialog open={open}>

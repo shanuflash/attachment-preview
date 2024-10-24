@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Flex,
   Dialog,
@@ -21,17 +21,12 @@ import moment from 'moment-timezone';
 import Header from './Components/Header';
 
 const Image = ({ data = [], active = 0, open = false, onClose = () => {} }) => {
-  const containerRef = React.useRef(null);
-  const imageRef = React.useRef(null);
-  const [currentData, setCurrentData] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
+  const containerRef = useRef(null);
+  const imageRef = useRef(null);
+  const [currentData, setCurrentData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // React.useEffect(() => {
-  //   if (!open) return;
-  //   setCurrentData(data[0]);
-  // }, [data, open]);
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (!open) return;
     setCurrentData(data.find((data) => data.id === active.id));
   }, [active, open]);
@@ -46,7 +41,7 @@ const Image = ({ data = [], active = 0, open = false, onClose = () => {} }) => {
   };
 
   const { prevImageExists, nextImageExists, prevImageIndex, nextImageIndex } =
-    React.useMemo(() => {
+    useMemo(() => {
       const currentIndex = data.findIndex(
         (data) => data?.id === currentData?.id
       );

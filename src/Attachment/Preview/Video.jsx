@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import {
   Flex,
@@ -37,14 +37,14 @@ export const formatTime = (seconds) => {
 };
 
 const Video = ({ data = {}, open = false, onClose = () => {} }) => {
-  const videoRef = React.useRef(null);
-  const seekRef = React.useRef(null);
-  const valueRef = React.useRef({
+  const videoRef = useRef(null);
+  const seekRef = useRef(null);
+  const valueRef = useRef({
     duration: 0,
     playedSeconds: 0,
   });
 
-  const [controls, setControls] = React.useState({
+  const [controls, setControls] = useState({
     playing: true,
     played: 0,
     loop: false,
@@ -64,9 +64,9 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
     duration: 0,
     seeking: false,
   });
-  const [loading, setLoading] = React.useState(true);
-  const [buffering, setBuffering] = React.useState(false);
-  const [error, setError] = React.useState(false);
+  const [loading, setLoading] = useState(true);
+  const [buffering, setBuffering] = useState(false);
+  const [error, setError] = useState(false);
 
   const handlePlayPause = () => {
     setControls((prev) => ({ ...prev, playing: !prev.playing }));
@@ -81,7 +81,7 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
     videoRef.current.seekTo(newPlayed / 100, 'fraction');
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const video = document.getElementById('video-player-src');
     const canvas = document.getElementById('video-player-canvas');
 
