@@ -25,6 +25,7 @@ import MultipleTypeAttachment from './MultipleType';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { DownFilledArrowIcon } from './Common/Icons';
+import Unsupported from './Preview/Unsupported';
 
 const createThumbnail = async ({ url }) => {
   const width = 320;
@@ -243,6 +244,16 @@ const Attachment = ({ files = [], collapsible = false }) => {
             onClose={() => {
               setCurrentData(null);
               setOpen((prev) => ({ ...prev, audio: false }));
+            }}
+          />
+        )}
+        {open?.unsupported && (
+          <Unsupported
+            data={currentData}
+            open={open?.unsupported}
+            onClose={() => {
+              setCurrentData(null);
+              setOpen((prev) => ({ ...prev, unsupported: false }));
             }}
           />
         )}
