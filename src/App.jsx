@@ -8,11 +8,6 @@ import {
   Text,
 } from '@sparrowengg/twigs-react';
 
-import Image from './Attachment/Preview/Image';
-import PDF from './Attachment/Preview/Pdf';
-import Video from './Attachment/Preview/Video';
-import Audio from './Attachment/Preview/Audio';
-
 import moment from 'moment';
 import ReactTimeAgo from 'react-time-ago';
 
@@ -76,15 +71,15 @@ const testVideos = [
     properties: { size: 12456 },
     uploadedBy: { name: 'Michael Clark', image: '' },
   },
-  {
-    id: 'video-2',
-    name: 'sample-mp4-1.mp4',
-    type: 'video/mp4',
-    url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/sample-mp4-1.mp4',
-    created_at: '2024-09-20T06:03:42.986Z',
-    properties: { size: 12456 },
-    uploadedBy: { name: 'Michael Clark', image: '' },
-  },
+  // {
+  //   id: 'video-2',
+  //   name: 'sample-mp4-1.mp4',
+  //   type: 'video/mp4',
+  //   url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/sample-mp4-1.mp4',
+  //   created_at: '2024-09-20T06:03:42.986Z',
+  //   properties: { size: 12456 },
+  //   uploadedBy: { name: 'Michael Clark', image: '' },
+  // },
   {
     id: 'video-3',
     name: 'sample-mp4-2.mp4',
@@ -98,7 +93,7 @@ const testVideos = [
     id: 'video-4',
     name: 'sample-mov.mov',
     type: 'video/quicktime',
-    url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/sample-mov.mov',
+    url: 'https://s3-figma-videos-production-sig.figma.com/video/869838795205329595/TEAM/ebf4/434e/-4380-471f-9798-8bfcfcd5349c?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=eHztiQYKxVfCKp1T~~FjaLIyWI8F5N27MXutA7wxnWfxqqAzXQpl2UQAx7R9EGphnxe3euU2AFcyAKvkukkb5bY8B3GqUFK2njdeeNrSYn9tpg32lQxXU7m08JdgMvw3ww6GnRIKmu3x6TuTFVQkdT4Uf8LN5s2HyzlVrYdtQvLN4th9b3DsNX8WbOqYo42fa-KMMXXGdcv56HdN5YXIrrlGXUltDj11bz~xsp3FTgabMhDN~418iX~s5j9KpkyV0moNn7cEVvc7GUJq-nubWItBw~pADrSF50OFm75EQ0DYBnIMNN73SolVKtkHbghk4MNEb0Xtyxez1US43eSaCQ__',
     created_at: '2024-09-20T06:03:42.986Z',
     properties: { size: 12456 },
     uploadedBy: { name: 'Michael Clark', image: '' },
@@ -108,6 +103,15 @@ const testVideos = [
 const testAudios = [
   {
     id: 'audio-1',
+    name: 'sample-mp3.mp3',
+    type: 'audio/mp3',
+    url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/sample-mp3.mp3',
+    created_at: '2024-09-20T06:03:42.986Z',
+    properties: { size: 12456 },
+    uploadedBy: { name: 'Michael Clark', image: '' },
+  },
+  {
+    id: 'audio-2',
     name: 'sample-mp3.mp3',
     type: 'audio/mp3',
     url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/sample-mp3.mp3',
@@ -212,10 +216,10 @@ const otherFiles = [
 
 const testAttachments = [
   // {
-  //   id: 'other-1',
-  //   name: 'Sample-pdf.pdf',
-  //   type: 'application/pdf',
-  //   url: 'https://ss-staging-public.s3.amazonaws.com/temp-pdfs/ilovepdf_merged.pdf',
+  //   id: 'video-1',
+  //   name: 'sample-mp4.mp4',
+  //   type: 'video/mp4',
+  //   url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/sample-mp4.mp4',
   //   created_at: '2024-09-20T06:03:42.986Z',
   //   properties: { size: 12456 },
   //   uploadedBy: { name: 'Michael Clark', image: '' },

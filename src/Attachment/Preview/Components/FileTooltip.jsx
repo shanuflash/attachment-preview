@@ -52,7 +52,7 @@ const FileTooltip = ({ children, currentData }) => {
               css={{ color: '$neutral700' }}
               truncate
             >
-              {formatBytes(currentData?.size)} •
+              {formatBytes(currentData?.properties?.size)} •
             </Text>
             <Text as="h4" size="xs" css={{ color: '$neutral700' }} truncate>
               {getFormattedDate(

@@ -23,7 +23,7 @@ import { CloseIcon } from '@sparrowengg/twigs-react-icons';
 import FileTooltip from './Components/FileTooltip';
 
 const defaultControls = {
-  playing: false,
+  playing: true,
   played: 0,
   loop: false,
   volume: null,
@@ -36,12 +36,20 @@ const defaultControls = {
   seeking: false,
 };
 
-const AudioPlayer = ({ data = {}, open = false, onClose = () => {} }) => {
+const AudioPlayer = ({
+  data = {},
+  open = false,
+  onClose = () => {},
+  autoPlay = true,
+}) => {
   const interval = useRef(null);
 
   const [blob, setBlob] = useState();
   const [audio] = useState(() => new Audio());
-  const [controls, setControls] = useState(defaultControls);
+  const [controls, setControls] = useState({
+    ...defaultControls,
+    autoPlay: autoPlay,
+  });
 
   const [loading, setLoading] = useState(false); // true
   const [blobLoading, setBlobLoading] = useState(true);
@@ -132,10 +140,11 @@ const AudioPlayer = ({ data = {}, open = false, onClose = () => {} }) => {
         });
       });
 
+    autoPlay && handlePlayPause();
     return () => {
       audio.removeEventListener('ended', onAudioEnded);
     };
-  }, [open]);
+  }, [open, autoPlay]);
 
   return (
     <Dialog open={open}>

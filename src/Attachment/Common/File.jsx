@@ -13,8 +13,52 @@ import {
   EllipsisVerticalIcon,
   PlayFillIcon,
 } from '@sparrowengg/twigs-react-icons';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { AttachmentIcons } from './Icons';
+import { motion } from 'framer-motion';
+
+const ImageLoader = ({ src, width, height }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      setIsLoading(false);
+    };
+  }, [src]);
+
+  return (
+    <Box
+      css={{
+        width,
+        height,
+        position: 'relative',
+        overflow: 'hidden',
+        backgroundColor: '#e5e7eb',
+        borderRadius: '$lg',
+      }}
+    >
+      <motion.div
+        initial={{ filter: `blur(10px)` }}
+        animate={{ filter: isLoading ? `blur(10px)` : 'blur(0px)' }}
+        transition={{
+          duration: 0.2,
+        }}
+      >
+        <Box
+          as="img"
+          src={src}
+          css={{
+            width: width,
+            height: height,
+            objectFit: 'cover',
+          }}
+        />
+      </motion.div>
+    </Box>
+  );
+};
 
 const getFileIcon = (attachment) => {
   switch (attachment?.type) {
@@ -33,17 +77,18 @@ const getFileIcon = (attachment) => {
     default:
       if (attachment?.type?.includes('image')) {
         return (
-          <Box
-            as="img"
-            src={attachment?.url}
-            alt="attachment"
-            css={{
-              height: '$10',
-              width: '$10',
-              borderRadius: '$lg',
-              objectFit: 'cover',
-            }}
-          />
+          <ImageLoader src={attachment?.url} width="$10" height="$10" />
+          // <Box
+          //   as="img"
+          //   src={attachment?.url}
+          //   alt="attachment"
+          //   css={{
+          //     height: '$10',
+          //     width: '$10',
+          //     borderRadius: '$lg',
+          //     objectFit: 'cover',
+          //   }}
+          // />
         );
       } else if (attachment?.type?.includes('audio')) {
         return <PlayFillIcon color="#64748B" size={40} />;
@@ -54,6 +99,21 @@ const getFileIcon = (attachment) => {
 };
 
 const File = ({ attachment, setCurrentData, setOpen }) => {
+  const formatBytes = useCallback(
+    (bytes, decimals = 2) => {
+      if (!+bytes) return '0 Bytes';
+
+      const k = 1000;
+      const dm = decimals < 0 ? 0 : decimals;
+      const sizes = ['Bytes', 'KB', 'MB'];
+
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+      return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+    },
+    [attachment]
+  );
+
   const [isOverflow, setIsOverflow] = useState(false);
 
   useEffect(() => {
@@ -150,8 +210,8 @@ const File = ({ attachment, setCurrentData, setOpen }) => {
         </Tooltip>
         <Text size="xs" css={{ color: '$neutral700', position: 'relative' }}>
           <Box as="span" className="default-text" css={{}}>
-            {attachment.name?.split('.')?.pop().toUpperCase()} . 10 Kb
-            {/* fix size */}
+            {attachment.name?.split('.')?.pop().toUpperCase()} .{' '}
+            {formatBytes(attachment.properties.size)}
           </Box>
           <Box as="span" className="hover-text" css={{}}>
             Click to view {attachment.name?.split('.')?.pop().toUpperCase()}

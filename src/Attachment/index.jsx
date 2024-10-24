@@ -14,18 +14,13 @@ import {
   EllipsisVerticalIcon,
 } from '@sparrowengg/twigs-react-icons';
 import React, { useState, useEffect, useMemo } from 'react';
-import Image from './Preview/Image';
-import Pdf from './Preview/Pdf';
-import Video from './Preview/Video';
-import Audio from './Preview/Audio';
 import SingleAttachmentThumbnail from './SingleType';
 import File from './Common/File';
 import Videos from './SingleType/Components/Videos';
 import MultipleTypeAttachment from './MultipleType';
-
 import { motion, AnimatePresence } from 'framer-motion';
 import { DownFilledArrowIcon } from './Common/Icons';
-import Unsupported from './Preview/Unsupported';
+import { Image, Pdf, Video, Audio, Unsupported } from './Preview';
 
 const createThumbnail = async ({ url }) => {
   const width = 320;
