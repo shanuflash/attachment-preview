@@ -1,10 +1,8 @@
 import { Box } from '@sparrowengg/twigs-react';
-import { motion } from 'framer-motion/dist/framer-motion';
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-const ImageLoader = ({
-  src, width, height, ...rest 
-}) => {
+const ImageLoader = ({ src, width, height, ...rest }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

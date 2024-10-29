@@ -3,11 +3,9 @@ import { Flex, Text } from '@sparrowengg/twigs-react';
 import React, { useState, useEffect, useMemo } from 'react';
 import SingleAttachmentThumbnail from './SingleType';
 import MultipleTypeAttachment from './MultipleType';
-import { AnimatePresence, motion } from 'framer-motion/dist/framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { DownFilledArrowIcon } from './Common/Icons';
-import {
-  Image, Pdf, Video, Audio, Unsupported 
-} from './Preview';
+import { Image, Pdf, Video, Audio, Unsupported } from './Preview';
 
 const createThumbnail = async ({ url }) => {
   const video = document.createElement('video');
