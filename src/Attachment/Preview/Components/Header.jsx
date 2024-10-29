@@ -1,9 +1,10 @@
 import React from 'react';
-import { Flex, Box, IconButton, Tooltip, Text } from '@sparrowengg/twigs-react';
+import {
+  Flex, IconButton, Tooltip, Text 
+} from '@sparrowengg/twigs-react';
 import { CloseIcon, DownloadIcon } from '@sparrowengg/twigs-react-icons';
 import Avatar from '../../Common/Avatar';
 import ReactTimeAgo from 'react-time-ago';
-import moment from 'moment-timezone';
 import FileTooltip from './FileTooltip';
 
 const Header = ({

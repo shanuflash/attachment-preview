@@ -380,4 +380,96 @@ const AttachmentIcons = {
   FILE: FILEIcon,
 };
 
-export { PlayIcon, PauseIcon, InfoIcon, DownFilledArrowIcon, AttachmentIcons };
+const MiniAudioIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M13.3334 10V6M8.00002 11.3333V4.66667M5.33335 14V2M2.66669 10.6667V5.33333M10.6667 12.6667V3.33333"
+      stroke="#4A9CA6"
+      stroke-width="1.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+);
+
+const MiniVideoIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M1.33331 5.33333H14.6666M3.99998 5.33333L5.33331 2M7.33331 5.33333L8.66665 2M10.6666 5.33333L12 2M13.3333 14H2.66665C2.31299 14.0001 1.9738 13.8597 1.72373 13.6096C1.47366 13.3595 1.33322 13.0203 1.33331 12.6667V3.33333C1.33322 2.97968 1.47366 2.64049 1.72373 2.39042C1.9738 2.14035 2.31299 1.9999 2.66665 2H13.3333C13.687 1.9999 14.0262 2.14035 14.2762 2.39042C14.5263 2.64049 14.6667 2.97968 14.6666 3.33333V12.6667C14.6667 13.0203 14.5263 13.3595 14.2762 13.6096C14.0262 13.8597 13.687 14.0001 13.3333 14ZM6.74835 10.8994V8.43395C6.74838 8.27908 6.83104 8.13601 6.96518 8.05862C7.09932 7.98124 7.26456 7.98131 7.39864 8.05881L9.53183 9.29153C9.66582 9.36894 9.74835 9.51193 9.74835 9.66667C9.74835 9.82141 9.66582 9.9644 9.53183 10.0418L7.39865 11.2745C7.26457 11.352 7.09933 11.3521 6.96518 11.2747C6.83104 11.1973 6.74838 11.0543 6.74835 10.8994Z"
+      stroke="#4A9CA6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+);
+
+const MiniOtherIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M9.25269 5.58319L5.59535 9.24052C5.04469 9.79119 5.04469 10.6845 5.59535 11.2352C6.14602 11.7859 7.03936 11.7859 7.59002 11.2352L12.4114 6.41386C13.4214 5.40386 13.4214 3.76652 12.4114 2.75652C11.4014 1.74652 9.76402 1.74652 8.75402 2.75652L3.93269 7.57786C2.46336 9.04719 2.46336 11.4285 3.93269 12.8979C5.40202 14.3672 7.78335 14.3672 9.25269 12.8979L12.1787 9.97186"
+      stroke="#4A9CA6"
+      stroke-width="1.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+);
+
+const MiniImageIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M9.91957 6.77851C10.9576 7.81652 10.9576 9.49948 9.91957 10.5375C8.88156 11.5755 7.1986 11.5755 6.16059 10.5375C5.12258 9.49948 5.12258 7.81652 6.16059 6.77851C7.1986 5.7405 8.88156 5.7405 9.91957 6.77851"
+      stroke="#4A9CA6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M14 6.00033V12.0003C14 12.737 13.4033 13.3337 12.6667 13.3337H3.33333C2.59667 13.3337 2 12.737 2 12.0003V6.00033C2 5.26366 2.59667 4.66699 3.33333 4.66699H4.66667L5.64133 2.99766C5.76067 2.79299 5.98 2.66699 6.21733 2.66699H9.75333C9.98733 2.66699 10.204 2.78966 10.3247 2.98966L11.3333 4.66699H12.6667C13.4033 4.66699 14 5.26366 14 6.00033Z"
+      stroke="#4A9CA6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+);
+
+const MiniAttachmentIcons = {
+  audios: MiniAudioIcon,
+  videos: MiniVideoIcon,
+  others: MiniOtherIcon,
+  images: MiniImageIcon,
+};
+
+export {
+  PlayIcon,
+  PauseIcon,
+  InfoIcon,
+  DownFilledArrowIcon,
+  AttachmentIcons,
+  MiniAttachmentIcons,
+};

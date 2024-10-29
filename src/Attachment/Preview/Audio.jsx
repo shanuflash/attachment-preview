@@ -5,15 +5,10 @@ import {
   DialogContent,
   Box,
   IconButton,
-  Button,
-  CircleLoader,
   Tooltip,
   Text,
-  Input,
   LineLoader,
-  Separator,
 } from '@sparrowengg/twigs-react';
-import Header from './Components/Header';
 import { InfoIcon, PauseIcon, PlayIcon } from '../Common/Icons';
 import { AudioVisualizer } from 'react-audio-visualize';
 import TrackBar from './Components/TrackBar';
@@ -36,19 +31,14 @@ const defaultControls = {
   seeking: false,
 };
 
-const AudioPlayer = ({
-  data = {},
-  open = false,
-  onClose = () => {},
-  autoPlay = true,
-}) => {
+const AudioPlayer = ({ data = {}, onClose = () => {}, autoPlay = true }) => {
   const interval = useRef(null);
 
   const [blob, setBlob] = useState();
   const [audio] = useState(() => new Audio());
   const [controls, setControls] = useState({
     ...defaultControls,
-    autoPlay: autoPlay,
+    autoPlay,
   });
 
   const [loading, setLoading] = useState(false); // true
@@ -109,8 +99,6 @@ const AudioPlayer = ({
   }, [controls.playing]);
 
   useEffect(() => {
-    if (!open) return;
-
     fetch(data.url)
       .then(async (response) => {
         const blob = await response.blob();
@@ -144,10 +132,10 @@ const AudioPlayer = ({
     return () => {
       audio.removeEventListener('ended', onAudioEnded);
     };
-  }, [open, autoPlay]);
+  }, [autoPlay]);
 
   return (
-    <Dialog open={open}>
+    <Dialog open>
       <DialogContent
         onEscapeKeyDown={handleClose}
         onOpenAutoFocus={(e) => e.preventDefault()}

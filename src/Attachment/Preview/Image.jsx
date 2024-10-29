@@ -1,4 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useEffect, useMemo, useRef, useState 
+} from 'react';
 import {
   Flex,
   Dialog,
@@ -7,29 +9,22 @@ import {
   IconButton,
   CircleLoader,
   Tooltip,
-  Text,
 } from '@sparrowengg/twigs-react';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-  CloseIcon,
-  DownloadIcon,
 } from '@sparrowengg/twigs-react-icons';
-import Avatar from '../Common/Avatar';
-// import ReactTimeAgo from 'react-time-ago';
-import moment from 'moment-timezone';
 import Header from './Components/Header';
 
-const Image = ({ data = [], active = 0, open = false, onClose = () => {} }) => {
+const Image = ({ data = [], active = 0, onClose = () => {} }) => {
   const containerRef = useRef(null);
   const imageRef = useRef(null);
   const [currentData, setCurrentData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!open) return;
     setCurrentData(data.find((data) => data.id === active.id));
-  }, [active, open]);
+  }, [active]);
 
   const setImageScale = () => {
     if (!containerRef.current || !imageRef.current) return;
@@ -40,7 +35,9 @@ const Image = ({ data = [], active = 0, open = false, onClose = () => {} }) => {
     imageRef.current.style.transform = `translate3d(0px, 0px, 0px) rotate(0deg) scale(${scale}, ${scale})`;
   };
 
-  const { prevImageExists, nextImageExists, prevImageIndex, nextImageIndex } =
+  const {
+    prevImageExists, nextImageExists, prevImageIndex, nextImageIndex 
+  } =
     useMemo(() => {
       const currentIndex = data.findIndex(
         (data) => data?.id === currentData?.id
@@ -64,7 +61,7 @@ const Image = ({ data = [], active = 0, open = false, onClose = () => {} }) => {
   );
 
   return (
-    <Dialog open={open}>
+    <Dialog open>
       <DialogContent
         onEscapeKeyDown={onClose}
         onOpenAutoFocus={(e) => e.preventDefault()}

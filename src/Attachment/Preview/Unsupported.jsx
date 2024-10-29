@@ -8,9 +8,9 @@ import {
 import Header from './Components/Header';
 import { DownloadIcon } from '@sparrowengg/twigs-react-icons';
 
-const Unsupported = ({ data = {}, open = false, onClose = () => {} }) => {
+const Unsupported = ({ data = {}, onClose = () => {} }) => {
   return (
-    <Dialog open={open}>
+    <Dialog open>
       <DialogContent
         onEscapeKeyDown={onClose}
         onOpenAutoFocus={(e) => e.preventDefault()}
@@ -30,7 +30,8 @@ const Unsupported = ({ data = {}, open = false, onClose = () => {} }) => {
             height: '100%',
             width: '100%',
             position: 'relative',
-            backgroundImage: `url(https://ss-staging-public.s3.us-east-1.amazonaws.com/static/ticket-management/unsupported-file.webp)`,
+            backgroundImage:
+              'url(https://ss-staging-public.s3.us-east-1.amazonaws.com/static/ticket-management/unsupported-file.webp)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}

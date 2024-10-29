@@ -1,8 +1,10 @@
 import { Box } from '@sparrowengg/twigs-react';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion/dist/framer-motion';
 import { useEffect, useState } from 'react';
 
-const ImageLoader = ({ src, width, height, ...rest }) => {
+const ImageLoader = ({
+  src, width, height, ...rest 
+}) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -26,8 +28,8 @@ const ImageLoader = ({ src, width, height, ...rest }) => {
       {...rest}
     >
       <motion.div
-        initial={{ filter: `blur(10px)` }}
-        animate={{ filter: isLoading ? `blur(10px)` : 'blur(0px)' }}
+        initial={{ filter: 'blur(10px)' }}
+        animate={{ filter: isLoading ? 'blur(10px)' : 'blur(0px)' }}
         transition={{
           duration: 0.2,
         }}
@@ -36,8 +38,8 @@ const ImageLoader = ({ src, width, height, ...rest }) => {
           as="img"
           src={src}
           css={{
-            width: width,
-            height: height,
+            width,
+            height,
             objectFit: 'cover',
           }}
         />

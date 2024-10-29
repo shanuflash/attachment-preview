@@ -15,7 +15,6 @@ import {
 } from '@sparrowengg/twigs-react-icons';
 import React, { useState, useEffect, useCallback } from 'react';
 import { AttachmentIcons } from './Icons';
-import { motion } from 'framer-motion';
 import ImageLoader from './ImageLoader';
 
 const getFileIcon = (attachment) => {
@@ -36,17 +35,6 @@ const getFileIcon = (attachment) => {
       if (attachment?.type?.includes('image')) {
         return (
           <ImageLoader src={attachment?.url} width="$10" height="$10" />
-          // <Box
-          //   as="img"
-          //   src={attachment?.url}
-          //   alt="attachment"
-          //   css={{
-          //     height: '$10',
-          //     width: '$10',
-          //     borderRadius: '$lg',
-          //     objectFit: 'cover',
-          //   }}
-          // />
         );
       } else if (attachment?.type?.includes('audio')) {
         return <PlayFillIcon color="#64748B" size={40} />;

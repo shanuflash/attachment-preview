@@ -1,65 +1,55 @@
-import {
-  Box,
-  Flex,
-  Text,
-  IconButton,
-  Tooltip,
-  DropdownMenuTrigger,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from '@sparrowengg/twigs-react';
-import {
-  PlayFillIcon,
-  EllipsisVerticalIcon,
-} from '@sparrowengg/twigs-react-icons';
+import { Flex, Text } from '@sparrowengg/twigs-react';
+
 import React, { useState, useEffect, useMemo } from 'react';
 import SingleAttachmentThumbnail from './SingleType';
-import File from './Common/File';
-import Videos from './SingleType/Components/Videos';
 import MultipleTypeAttachment from './MultipleType';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion/dist/framer-motion';
 import { DownFilledArrowIcon } from './Common/Icons';
-import { Image, Pdf, Video, Audio, Unsupported } from './Preview';
+import {
+  Image, Pdf, Video, Audio, Unsupported 
+} from './Preview';
 
 const createThumbnail = async ({ url }) => {
-  const width = 320;
-  const height = 180;
   const video = document.createElement('video');
   video.src = url || '';
   video.crossOrigin = 'anonymous';
 
   return new Promise((resolve, reject) => {
+    const handleError = (error) =>
+      reject(new Error('Error loading video:', error));
+
+    const generateThumbnail = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return handleError('Canvas context not available');
+
+      // Scale thumbnail down to 318x178
+      const maxDimensions = { width: 318, height: 178 };
+      const scale = Math.min(
+        maxDimensions.width / video.videoWidth,
+        maxDimensions.height / video.videoHeight
+      );
+
+      canvas.width = video.videoWidth * scale;
+      canvas.height = video.videoHeight * scale;
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL('image/jpeg'));
+    };
+
     video.onloadedmetadata = () => {
       video.currentTime = 1;
     };
-    video.onseeked = () => {
-      const canvas = document.createElement('canvas');
-
-      //OPTIMIZE SIZE LATER !!!
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      //OPTIMIZE SIZE LATER !!!
-
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const thumbnailURL = canvas.toDataURL('image/jpeg');
-        resolve(thumbnailURL);
-      }
-    };
-    video.onerror = (error) => {
-      reject(new Error('Error loading the video', error));
-    };
+    video.onseeked = generateThumbnail;
+    video.onerror = handleError;
     video.load();
   });
 };
 
-const Attachment = ({ files = [], collapsible = false }) => {
+const Attachments = ({ files = [], collapsible = false, mini = false }) => {
   const [attachments, setAttachments] = useState([]);
+  const [currentData, setCurrentData] = useState(null);
   const [isOpen, setIsOpen] = useState(true);
   const [videoThumbnails, setVideoThumbnails] = useState([]);
-
   const [open, setOpen] = useState({
     image: false,
     pdf: false,
@@ -68,26 +58,31 @@ const Attachment = ({ files = [], collapsible = false }) => {
     unsupported: false,
   });
 
-  const [currentData, setCurrentData] = useState(null);
-
   const groupAttachmentsbyType = (attachments = []) => {
-    const groupedAttachments = attachments?.reduce(
-      (acc, attachment) => {
-        if (attachment.type.includes('image')) {
-          acc.images.push(attachment);
-        } else if (attachment.type.includes('video')) {
-          acc.videos.push(attachment);
-        } else if (attachment.type.includes('audio')) {
-          acc.audios.push(attachment);
-        } else {
-          acc.others.push(attachment);
-        }
-        return acc;
-      },
-      { images: [], videos: [], audios: [], others: [] }
-    );
+    const groupedAttachments = {
+      images: [],
+      videos: [],
+      audios: [],
+      others: [],
+    };
 
-    setAttachments(groupedAttachments || []);
+    attachments?.forEach((attachment) => {
+      const type = attachment.type.split('/')[0];
+      switch (type) {
+        case 'image':
+          groupedAttachments.images.push(attachment);
+          break;
+        case 'video':
+          groupedAttachments.videos.push(attachment);
+          break;
+        case 'audio':
+          groupedAttachments.audios.push(attachment);
+          break;
+        default:
+          groupedAttachments.others.push(attachment);
+      }
+    });
+    setAttachments(groupedAttachments);
   };
 
   useEffect(() => {
@@ -96,6 +91,7 @@ const Attachment = ({ files = [], collapsible = false }) => {
 
   const isSingleAttachment = useMemo(() => {
     if (attachments.length === 0) return false;
+    if (mini) return true;
 
     // Filter out empty attachment types
     const nonEmptyKeys = Object.keys(attachments).filter(
@@ -109,7 +105,7 @@ const Attachment = ({ files = [], collapsible = false }) => {
 
     // If multiple attachment types are present, return false
     return false;
-  }, [attachments]);
+  }, [attachments, mini]);
 
   useEffect(() => {
     if (!attachments?.videos || attachments.videos.length === 0) {
@@ -189,11 +185,17 @@ const Attachment = ({ files = [], collapsible = false }) => {
                   videoThumbnails,
                   setCurrentData,
                   setOpen,
+                  mini,
                 }}
               />
             ) : (
               <MultipleTypeAttachment
-                {...{ attachments, videoThumbnails, setCurrentData, setOpen }}
+                {...{
+                  attachments,
+                  videoThumbnails,
+                  setCurrentData,
+                  setOpen,
+                }}
               />
             )}
           </motion.section>
@@ -205,7 +207,6 @@ const Attachment = ({ files = [], collapsible = false }) => {
           <Image
             data={attachments?.images}
             active={currentData}
-            open={open?.image}
             onClose={() => {
               setCurrentData(null);
               setOpen((prev) => ({ ...prev, image: false }));
@@ -215,7 +216,6 @@ const Attachment = ({ files = [], collapsible = false }) => {
         {open?.video && (
           <Video
             data={currentData}
-            open={open?.video}
             onClose={() => {
               setCurrentData(null);
               setOpen((prev) => ({ ...prev, video: false }));
@@ -225,7 +225,6 @@ const Attachment = ({ files = [], collapsible = false }) => {
         {open?.pdf && (
           <Pdf
             data={currentData}
-            open={open?.pdf}
             onClose={() => {
               setCurrentData(null);
               setOpen((prev) => ({ ...prev, pdf: false }));
@@ -235,7 +234,6 @@ const Attachment = ({ files = [], collapsible = false }) => {
         {open?.audio && (
           <Audio
             data={currentData}
-            open={open?.audio}
             onClose={() => {
               setCurrentData(null);
               setOpen((prev) => ({ ...prev, audio: false }));
@@ -245,7 +243,6 @@ const Attachment = ({ files = [], collapsible = false }) => {
         {open?.unsupported && (
           <Unsupported
             data={currentData}
-            open={open?.unsupported}
             onClose={() => {
               setCurrentData(null);
               setOpen((prev) => ({ ...prev, unsupported: false }));
@@ -257,4 +254,4 @@ const Attachment = ({ files = [], collapsible = false }) => {
   );
 };
 
-export default Attachment;
+export default Attachments;

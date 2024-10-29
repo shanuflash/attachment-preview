@@ -1,17 +1,5 @@
 import React from 'react';
-import {
-  Flex,
-  Dialog,
-  DialogContent,
-  Box,
-  IconButton,
-  Button,
-  CircleLoader,
-  Tooltip,
-  Text,
-  Input,
-  Slider,
-} from '@sparrowengg/twigs-react';
+import { Flex, Box } from '@sparrowengg/twigs-react';
 
 const ProgressBar = ({ value = 0, onChange }) => {
   return (
@@ -42,7 +30,7 @@ const ProgressBar = ({ value = 0, onChange }) => {
           '&::-webkit-slider-runnable-track': {
             height: '6px',
             borderRadius: '30px',
-            '--sx': `calc(1 * 10px + calc(var(--value) / 100) * (100% - 10px))`,
+            '--sx': 'calc(1 * 10px + calc(var(--value) / 100) * (100% - 10px))',
             background:
               'linear-gradient($white800, $white800) 0/var(--sx) 100% no-repeat, $white500',
           },
@@ -50,7 +38,7 @@ const ProgressBar = ({ value = 0, onChange }) => {
           '&::-moz-range-track': {
             height: '6px',
             borderRadius: '30px',
-            '--sx': `calc(1 * 10px + calc(var(--value) / 100) * (100% - 10px))`,
+            '--sx': 'calc(1 * 10px + calc(var(--value) / 100) * (100% - 10px))',
             background:
               'linear-gradient($white800, $white800) 0/var(--sx) 100% no-repeat, $white500',
           },
@@ -58,7 +46,7 @@ const ProgressBar = ({ value = 0, onChange }) => {
           '&::-ms-track': {
             height: '6px',
             borderRadius: '30px',
-            '--sx': `calc(1 * 10px + calc(var(--value) / 100) * (100% - 10px))`,
+            '--sx': 'calc(1 * 10px + calc(var(--value) / 100) * (100% - 10px))',
             background:
               'linear-gradient($white800, $white800) 0/var(--sx) 100% no-repeat, $white500',
             borderColor: 'transparent',

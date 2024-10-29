@@ -6,11 +6,9 @@ import {
   DialogContent,
   Box,
   IconButton,
-  Button,
   CircleLoader,
   Tooltip,
   Text,
-  Input,
 } from '@sparrowengg/twigs-react';
 import Header from './Components/Header';
 import { PauseIcon, PlayIcon } from '../Common/Icons';
@@ -36,7 +34,7 @@ export const formatTime = (seconds) => {
   }
 };
 
-const Video = ({ data = {}, open = false, onClose = () => {} }) => {
+const Video = ({ data = {}, onClose = () => {} }) => {
   const videoRef = useRef(null);
   const seekRef = useRef(null);
   const valueRef = useRef({
@@ -130,8 +128,6 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
   };
 
   useEffect(() => {
-    if (!open) return;
-
     setControls((prev) => ({ ...prev, playing: true }));
     const handleKeyDown = (event) => {
       switch (event.code) {
@@ -161,10 +157,10 @@ const Video = ({ data = {}, open = false, onClose = () => {} }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [open]);
+  }, []);
 
   return (
-    <Dialog open={open}>
+    <Dialog open>
       <DialogContent
         onEscapeKeyDown={onClose}
         onOpenAutoFocus={(e) => e.preventDefault()}

@@ -1,26 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { pdfjs, Document, Page, Outline, Thumbnail } from 'react-pdf';
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import 'react-pdf/dist/esm/Page/TextLayer.css';
 import {
   Box,
   CircleLoader,
   Dialog,
   DialogContent,
-  dialogs,
   Flex,
-  Input,
   Text,
-  Button,
 } from '@sparrowengg/twigs-react';
 import Header from './Components/Header';
 import { useInView } from 'react-intersection-observer';
 import PasswordModal from './Components/PasswordModal';
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url
-).toString();
+import {
+  pdfjs, Document, Page, Thumbnail 
+} from 'react-pdf';
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+import 'react-pdf/dist/esm/Page/TextLayer.css';
+
+// pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+//   'pdfjs-dist/build/pdf.worker.min.js',
+//   import.meta.url
+// ).toString();
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
 
 const PageWrapper = ({
   loading = true,
@@ -45,7 +47,7 @@ const PageWrapper = ({
   );
 };
 
-const Pdf = ({ open, data, onClose }) => {
+const Pdf = ({ data = {}, onClose = () => {} }) => {
   const passwordRef = useRef({
     value: '',
     callback: () => {},
@@ -63,18 +65,17 @@ const Pdf = ({ open, data, onClose }) => {
   };
 
   useEffect(() => {
-    if (!open) return;
     const thumbnail = document?.getElementById(`pdf-thumbnail-${pageNumber}`);
     thumbnail?.scrollIntoView({ block: 'nearest' });
-  }, [pageNumber, open]);
+  }, [pageNumber]);
 
   useEffect(() => {
     if (loading) return;
     setPageNumber(1);
-  }, [loading, pageNumber]);
+  }, [loading, numPages]);
 
   return (
-    <Dialog open={open}>
+    <Dialog open>
       <DialogContent
         onEscapeKeyDown={onClose}
         onOpenAutoFocus={(e) => e.preventDefault()}
