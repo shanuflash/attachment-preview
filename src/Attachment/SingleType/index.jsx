@@ -3,6 +3,7 @@ import {
   Images, Videos, Audios, Others 
 } from './Components';
 import { MiniAttachmentIcons } from '../Common/Icons';
+import { getAttachmentType } from '../Common/helpers';
 
 const SingleTypeAttachment = ({
   type,
@@ -36,16 +37,7 @@ const SingleTypeAttachment = ({
                 }}
                 onMouseDown={() => {
                   setCurrentData(item);
-                  let itemType = 'unsupported';
-                  if (item.type.includes('image')) {
-                    itemType = 'image';
-                  } else if (item.type.includes('video')) {
-                    itemType = 'video';
-                  } else if (item.type.includes('audio')) {
-                    itemType = 'audio';
-                  } else if (item.type === 'application/pdf') {
-                    itemType = 'pdf';
-                  }
+                  const itemType = getAttachmentType(item?.type);
                   setOpen((prev) => ({ ...prev, [itemType]: true }));
                 }}
               >

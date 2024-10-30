@@ -16,6 +16,7 @@ import {
 import React, { useState, useEffect, useCallback } from 'react';
 import { AttachmentIcons } from './Icons';
 import ImageLoader from './ImageLoader';
+import { getAttachmentType } from './helpers';
 
 const getFileIcon = (attachment) => {
   switch (attachment?.type) {
@@ -33,9 +34,7 @@ const getFileIcon = (attachment) => {
       return <AttachmentIcons.PDF />;
     default:
       if (attachment?.type?.includes('image')) {
-        return (
-          <ImageLoader src={attachment?.url} width="$10" height="$10" />
-        );
+        return <ImageLoader src={attachment?.url} width="$10" height="$10" />;
       } else if (attachment?.type?.includes('audio')) {
         return <PlayFillIcon color="#64748B" size={40} />;
       } else {
@@ -57,7 +56,7 @@ const File = ({ attachment, setCurrentData, setOpen }) => {
 
       return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
     },
-    [attachment]
+    [attachment],
   );
 
   const [isOverflow, setIsOverflow] = useState(false);
@@ -75,16 +74,7 @@ const File = ({ attachment, setCurrentData, setOpen }) => {
       gap="$4"
       onClick={() => {
         setCurrentData(attachment);
-        let key = 'unsupported';
-        if (attachment.type.includes('image')) {
-          key = 'image';
-        } else if (attachment.type.includes('video')) {
-          key = 'video';
-        } else if (attachment.type.includes('audio')) {
-          key = 'audio';
-        } else if (attachment.type === 'application/pdf') {
-          key = 'pdf';
-        }
+        const key = getAttachmentType(attachment?.type);
         setOpen((prev) => ({ ...prev, [key]: true }));
       }}
       css={{
