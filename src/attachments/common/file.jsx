@@ -6,17 +6,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import React, {
-  useState, useEffect, useCallback, useRef 
-} from 'react';
-import { AttachmentIcons } from './Icons';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { AttachmentIcons } from './icons';
 import ImageLoader from './ImageLoader';
 import { downloadSrcAsFile } from './helpers';
 import { fileTypes } from './constants';
 
 export const getFileIcon = (attachment, size = 40) => {
-  const iconProps = { size, className: "flex-shrink-0" };
-  
+  const iconProps = { size, className: 'flex-shrink-0' };
+
   switch (attachment?.type) {
     case fileTypes.csv:
       return <AttachmentIcons.CSV {...iconProps} />;
@@ -82,10 +80,10 @@ const File = ({ attachment, setOpen, handleDownload }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex-shrink-0 h-10 w-10 rounded-lg flex items-center justify-center">
+      <div className="shrink-0 h-10 w-10 rounded-lg flex items-center justify-center">
         {getFileIcon(attachment)}
       </div>
-      
+
       <div className="flex-1 flex flex-col min-w-0">
         <TooltipProvider>
           <Tooltip>
@@ -104,7 +102,7 @@ const File = ({ attachment, setOpen, handleDownload }) => {
             )}
           </Tooltip>
         </TooltipProvider>
-        
+
         <div className="text-xs text-muted-foreground relative">
           <span
             className={`absolute top-0 left-0 transition-opacity duration-200 ${
@@ -122,7 +120,7 @@ const File = ({ attachment, setOpen, handleDownload }) => {
           </span>
         </div>
       </div>
-      
+
       <div className="flex items-center">
         <TooltipProvider>
           <Tooltip>
@@ -130,7 +128,7 @@ const File = ({ attachment, setOpen, handleDownload }) => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 flex-shrink-0"
+                className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 shrink-0"
                 onClick={(e) => {
                   e.stopPropagation();
                   if (handleDownload) {
@@ -143,9 +141,7 @@ const File = ({ attachment, setOpen, handleDownload }) => {
                 <Download className="h-5 w-5" />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>
-              Download file
-            </TooltipContent>
+            <TooltipContent>Download file</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </div>

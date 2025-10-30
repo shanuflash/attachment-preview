@@ -1,5 +1,5 @@
 import React from 'react';
-import Attachment from './Attachment';
+import Attachments from './attachments';
 
 // Auto-generate IDs for files
 let fileIdCounter = 0;
@@ -147,7 +147,7 @@ const testAttachments = [
 function App() {
   return (
     <div className="p-8 min-h-screen bg-background">
-      <Attachment files={testAttachments} collapsible />
+      <Attachments files={testAttachments} collapsible />
     </div>
   );
 }

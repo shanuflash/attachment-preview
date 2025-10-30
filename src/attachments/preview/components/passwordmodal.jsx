@@ -1,9 +1,6 @@
 import React from 'react';
 import { Lock } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -17,18 +14,12 @@ const PasswordModal = ({
 }) => {
   return (
     <Dialog open={passwordModal}>
-      <DialogContent
-        className="dm-sans bg-white text-neutral-900 p-16 px-12 pb-8 w-[465px] rounded-2xl overflow-hidden"
-      >
+      <DialogContent className="dm-sans bg-white text-neutral-900 p-16 px-12 pb-8 w-[465px] rounded-2xl overflow-hidden">
         <form>
           <div className="flex flex-col items-center">
             <Lock className="h-6 w-6" />
-            <h3 className="text-lg font-bold mt-6">
-              Title
-            </h3>
-            <h4 className="text-neutral-800">
-              Description
-            </h4>
+            <h3 className="text-lg font-bold mt-6">Title</h3>
+            <h4 className="text-neutral-800">Description</h4>
             <div className="w-full mt-12">
               <Input
                 type="password"
@@ -39,9 +30,7 @@ const PasswordModal = ({
                 }}
               />
               {passwordError && (
-                <p className="text-red-500 text-sm mt-1">
-                  Incorrect password
-                </p>
+                <p className="text-red-500 text-sm mt-1">Incorrect password</p>
               )}
             </div>
           </div>

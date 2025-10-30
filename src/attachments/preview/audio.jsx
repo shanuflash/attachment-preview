@@ -1,12 +1,10 @@
-import React, {
-  useCallback, useEffect, useRef, useState 
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Download } from 'lucide-react';
 import { AudioVisualizer } from 'react-audio-visualize';
-import { downloadSrcAsFile, formatTime } from '../Common/helpers';
-import PauseIcon from '../Common/Icons/PauseIcon';
-import PlayIcon from '../Common/Icons/PlayIcon';
-import TrackBar from './Components/TrackBar';
+import { downloadSrcAsFile, formatTime } from '../common/helpers';
+import PauseIcon from '../common/icons/pauseicon';
+import PlayIcon from '../common/icons/playicon';
+import TrackBar from './components/trackbar';
 import {
   Tooltip,
   TooltipContent,
@@ -204,18 +202,13 @@ const Audio = ({ data = {}, handleDownload, small = false }) => {
           </h5>
         </div>
 
-        <div
-          id="visualizer"
-          className="flex justify-center items-center grow"
-        >
+        <div id="visualizer" className="flex justify-center items-center grow">
           {blobLoading ? (
             <div className="w-full h-1 bg-neutral-100 rounded-full overflow-hidden">
               <div className="h-full bg-secondary animate-pulse"></div>
             </div>
           ) : error ? (
-            <h5 className="text-neutral-800">
-              Error loading audio
-            </h5>
+            <h5 className="text-neutral-800">Error loading audio</h5>
           ) : (
             <div className="flex gap-2 justify-between w-full">
               <div
@@ -267,9 +260,7 @@ const Audio = ({ data = {}, handleDownload, small = false }) => {
                   <Download className="h-5 w-5" strokeWidth={2} />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent sideOffset={2}>
-                Download File
-              </TooltipContent>
+              <TooltipContent sideOffset={2}>Download File</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>

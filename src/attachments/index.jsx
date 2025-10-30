@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import File from './Common/File';
+import File from './common/File';
 import Preview from './Preview';
 
 /**
@@ -51,8 +51,8 @@ const Attachments = ({
           </span>
           <ChevronDown
             className={cn(
-              "h-4 w-4 transition-transform duration-200",
-              !isCollapsed ? "rotate-0" : "-rotate-90"
+              'h-4 w-4 transition-transform duration-200',
+              !isCollapsed ? 'rotate-0' : '-rotate-90'
             )}
           />
         </button>
@@ -60,8 +60,8 @@ const Attachments = ({
 
       <div
         className={cn(
-          "overflow-hidden transition-all duration-300 ease-in-out",
-          isCollapsed ? "max-h-0 opacity-0" : "max-h-[3300px] opacity-100"
+          'overflow-hidden transition-all duration-300 ease-in-out',
+          isCollapsed ? 'max-h-0 opacity-0' : 'max-h-[3300px] opacity-100'
         )}
       >
         {!isCollapsed && (

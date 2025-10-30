@@ -1,21 +1,21 @@
-import { 
-  FileText, 
-  FileSpreadsheet, 
+import {
+  FileText,
+  FileSpreadsheet,
   File as FileIcon,
   FileCode,
   Music,
   Video,
   Image,
-  FileType
+  FileType,
 } from 'lucide-react';
 
-const IconWrapper = ({ children, color = "#6366f1", size = 40 }) => (
-  <div 
+const IconWrapper = ({ children, color = '#6366f1', size = 40 }) => (
+  <div
     className="flex items-center justify-center rounded-lg"
-    style={{ 
-      width: size, 
+    style={{
+      width: size,
       height: size,
-      backgroundColor: `${color}15`
+      backgroundColor: `${color}15`,
     }}
   >
     {children}
@@ -25,12 +25,20 @@ const IconWrapper = ({ children, color = "#6366f1", size = 40 }) => (
 const AttachmentIcons = {
   CSV: ({ size = 40, ...props }) => (
     <IconWrapper color="#10b981" size={size}>
-      <FileSpreadsheet className="text-emerald-600" size={size * 0.5} {...props} />
+      <FileSpreadsheet
+        className="text-emerald-600"
+        size={size * 0.5}
+        {...props}
+      />
     </IconWrapper>
   ),
   XLS: ({ size = 40, ...props }) => (
     <IconWrapper color="#10b981" size={size}>
-      <FileSpreadsheet className="text-emerald-600" size={size * 0.5} {...props} />
+      <FileSpreadsheet
+        className="text-emerald-600"
+        size={size * 0.5}
+        {...props}
+      />
     </IconWrapper>
   ),
   DOC: ({ size = 40, ...props }) => (
@@ -66,10 +74,10 @@ const AttachmentIcons = {
 };
 
 const MiniAttachmentIcons = {
-  audios: ({ className }) => <Music className={className || "h-4 w-4"} />,
-  videos: ({ className }) => <Video className={className || "h-4 w-4"} />,
-  others: ({ className }) => <FileIcon className={className || "h-4 w-4"} />,
-  images: ({ className }) => <Image className={className || "h-4 w-4"} />,
+  audios: ({ className }) => <Music className={className || 'h-4 w-4'} />,
+  videos: ({ className }) => <Video className={className || 'h-4 w-4'} />,
+  others: ({ className }) => <FileIcon className={className || 'h-4 w-4'} />,
+  images: ({ className }) => <Image className={className || 'h-4 w-4'} />,
 };
 
 export { AttachmentIcons, MiniAttachmentIcons };

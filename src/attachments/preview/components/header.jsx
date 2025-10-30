@@ -7,7 +7,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { X, Download } from 'lucide-react';
-import { downloadSrcAsFile } from '../../Common/helpers';
+import { downloadSrcAsFile } from '../../common/helpers';
 import { cn } from '@/lib/utils';
 
 const Header = ({
@@ -20,10 +20,10 @@ const Header = ({
   return (
     <div
       className={cn(
-        "z-10 h-18 px-8 py-6 w-full absolute top-0 flex justify-between items-center",
-        isPdf 
-          ? "bg-neutral-800" 
-          : "bg-gradient-to-b from-black/50 to-transparent"
+        'z-10 h-18 px-8 py-6 w-full absolute top-0 flex justify-between items-center',
+        isPdf
+          ? 'bg-neutral-800'
+          : 'bg-gradient-to-b from-black/50 to-transparent'
       )}
     >
       <div className="flex gap-4 items-center">
@@ -45,7 +45,7 @@ const Header = ({
           </p>
         </div>
       </div>
-      
+
       <div className="flex gap-3">
         {showDownload && (
           <TooltipProvider>
@@ -66,9 +66,7 @@ const Header = ({
                   <Download className="h-5 w-5" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>
-                Download
-              </TooltipContent>
+              <TooltipContent>Download</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         )}
@@ -84,9 +82,7 @@ const Header = ({
                 <X className="h-5 w-5" />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>
-              Close
-            </TooltipContent>
+            <TooltipContent>Close</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </div>

@@ -45,7 +45,7 @@ const ProgressBar = ({ value = 0, onChange }) => {
           group-hover:[&::-webkit-slider-thumb]:scale-100!
           group-hover:[&::-moz-range-thumb]:scale-100!"
         style={{
-          '--progress': `${value}%`
+          '--progress': `${value}%`,
         }}
       />
     </div>

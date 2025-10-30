@@ -1,5 +1,9 @@
 import React, { forwardRef, useMemo } from 'react';
-import { Avatar as ShadcnAvatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  Avatar as ShadcnAvatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 
 export const avatarColors = [
@@ -13,7 +17,7 @@ export const avatarColors = [
 
 const Avatar = forwardRef((props, ref) => {
   const { name, src, className, ...rest } = props;
-  
+
   const randomColor = useMemo(() => {
     const firstLetter = name?.charAt(0).toUpperCase() ?? '?';
     return avatarColors[(firstLetter.charCodeAt() % 65) % avatarColors.length];

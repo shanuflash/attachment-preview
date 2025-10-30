@@ -1,10 +1,5 @@
-import React, {
-  useEffect, useMemo, useRef, useState 
-} from 'react';
-import {
-  Dialog,
-  DialogContent,
-} from '@/components/ui/dialog';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
@@ -12,18 +7,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import {
-  ChevronLeft,
-  ChevronRight,
-} from 'lucide-react';
-import Header from './Components/Header';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Header from './components/Header';
 
 import Image from './Image';
-import Video from './Video';
-import Pdf from './Pdf';
-import Unsupported from './Unsupported';
-import { getAttachmentType } from '../Common/helpers';
-import { previewTypes } from '../Common/constants';
+import Video from './video';
+import Pdf from './pdf';
+import Unsupported from './unsupported';
+import { getAttachmentType } from '../common/helpers';
+import { previewTypes } from '../common/constants';
 import { cn } from '@/lib/utils';
 
 const Preview = ({
@@ -39,9 +31,7 @@ const Preview = ({
     setCurrentData(data.find((data) => data.id === activeId));
   }, [activeId, data]);
 
-  const {
-    prevFileExists, nextFileExists, prevFileIndex, nextFileIndex 
-  } =
+  const { prevFileExists, nextFileExists, prevFileIndex, nextFileIndex } =
     useMemo(() => {
       const currentIndex = data.findIndex(
         (data) => data?.id === currentData?.id
@@ -67,8 +57,8 @@ const Preview = ({
     <Dialog open onOpenChange={(open) => !open && onClose()}>
       <DialogContent
         className={cn(
-          "max-w-[90vw] min-h-[90vh] h-[90vh] p-0 rounded-2xl overflow-hidden border-none",
-          fileType === previewTypes.pdf ? "bg-gray-500" : "bg-black"
+          'max-w-[90vw] min-h-[90vh] h-[90vh] p-0 rounded-2xl overflow-hidden border-none',
+          fileType === previewTypes.pdf ? 'bg-gray-500' : 'bg-black'
         )}
         onEscapeKeyDown={onClose}
         onPointerDownOutside={onClose}
@@ -111,9 +101,7 @@ const Preview = ({
                         <ChevronLeft className="h-8 w-8" strokeWidth={1.8} />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent>
-                      Previous
-                    </TooltipContent>
+                    <TooltipContent>Previous</TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               </div>
@@ -133,9 +121,7 @@ const Preview = ({
                         <ChevronRight className="h-8 w-8" strokeWidth={1.8} />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent>
-                      Next
-                    </TooltipContent>
+                    <TooltipContent>Next</TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               </div>

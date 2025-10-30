@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-const ImageLoader = ({
-  src, className, ...rest 
-}) => {
+const ImageLoader = ({ src, className, ...rest }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -17,7 +15,7 @@ const ImageLoader = ({
   return (
     <div
       className={cn(
-        "relative overflow-hidden bg-muted rounded-lg cursor-pointer",
+        'relative overflow-hidden bg-muted rounded-lg cursor-pointer',
         className
       )}
       {...rest}
@@ -26,8 +24,8 @@ const ImageLoader = ({
         src={src}
         alt=""
         className={cn(
-          "w-full h-full object-cover transition-all duration-200",
-          isLoading ? "blur-lg" : "blur-0"
+          'w-full h-full object-cover transition-all duration-200',
+          isLoading ? 'blur-lg' : 'blur-0'
         )}
       />
     </div>

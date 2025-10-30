@@ -75,11 +75,17 @@ const Image = ({ data }) => {
     if (!isDragging || !isZoomed) return;
     const imageWidth = imageRef.current.clientWidth * scale;
     const containerWidth = containerRef.current.clientWidth;
-    const maxX = Math.max((imageWidth - containerWidth) / 2, containerWidth / 4);
+    const maxX = Math.max(
+      (imageWidth - containerWidth) / 2,
+      containerWidth / 4
+    );
     const minX = -maxX;
     const imageHeight = imageRef.current.clientHeight * scale;
     const containerHeight = containerRef.current.clientHeight;
-    const maxY = Math.max((imageHeight - containerHeight) / 2, containerHeight / 4);
+    const maxY = Math.max(
+      (imageHeight - containerHeight) / 2,
+      containerHeight / 4
+    );
     const minY = -maxY;
     const rawX = e.clientX - dragStart.x;
     const rawY = e.clientY - dragStart.y;
@@ -119,14 +125,15 @@ const Image = ({ data }) => {
         onPointerMove={handleDragMove}
         onPointerUp={handleDragEnd}
         onPointerLeave={handleDragEnd}
-        className="z-[2] select-none"
+        className="z-2 select-none"
         style={{
           cursor: isDragging ? 'grabbing' : isZoomed ? 'grab' : 'zoom-in',
-          transition: isDragging || !runOnce ? 'none' : 'transform 0.2s ease-in-out',
+          transition:
+            isDragging || !runOnce ? 'none' : 'transform 0.2s ease-in-out',
         }}
       />
       <div
-        className="z-[1] absolute inset-[-100px] pointer-events-none bg-black"
+        className="z-1 absolute inset-[-100px] pointer-events-none bg-black"
         style={{
           background: `url(${data?.url})`,
           filter: 'blur(40px) brightness(.4)',

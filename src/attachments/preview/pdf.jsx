@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import PasswordModal from './Components/PasswordModal';
+import PasswordModal from './components/PasswordModal';
 
-import {
-  pdfjs, Document, Page, Thumbnail 
-} from 'react-pdf';
+import { pdfjs, Document, Page, Thumbnail } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
@@ -104,7 +102,9 @@ const Pdf = ({ data = {}, onClose = () => {} }) => {
                     key={`thumbnail-${index + 1}`}
                     id={`pdf-thumbnail-${index + 1}`}
                     className={`flex flex-col items-center gap-3 [&_.react-pdf__Thumbnail]:border-3 [&_.react-pdf__Thumbnail]:border-transparent ${
-                      pageNumber === index + 1 ? '[&_.react-pdf__Thumbnail]:border-primary!' : ''
+                      pageNumber === index + 1
+                        ? '[&_.react-pdf__Thumbnail]:border-primary!'
+                        : ''
                     }`}
                   >
                     <Thumbnail
@@ -120,9 +120,7 @@ const Pdf = ({ data = {}, onClose = () => {} }) => {
                         setPageNumber(pageNumber);
                       }}
                     />
-                    <h4 className="font-bold text-white">
-                      {index + 1}
-                    </h4>
+                    <h4 className="font-bold text-white">{index + 1}</h4>
                   </div>
                 ))}
               </div>

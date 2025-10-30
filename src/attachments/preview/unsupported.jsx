@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
-import { downloadSrcAsFile } from '../Common/helpers';
+import { downloadSrcAsFile } from '../common/helpers';
+import ImageLoader from '../common/ImageLoader';
 
 const Unsupported = ({ data = {}, handleDownload }) => {
   return (

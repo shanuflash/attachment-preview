@@ -9,7 +9,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Play, Pause, Loader2 } from 'lucide-react';
-import { formatTime } from '../Common/helpers';
+import { formatTime } from '../common/helpers';
 
 const Video = ({ data = {} }) => {
   const videoRef = useRef(null);
@@ -184,10 +184,13 @@ const Video = ({ data = {} }) => {
           step={0.1}
           className="flex-1"
         />
-        
+
         <div className="flex-shrink-0 pl-2 text-white text-sm font-bold">
           <span>{formatTime(valueRef.current.playedSeconds)}</span>
-          <span className="text-white/80 font-medium"> / {formatTime(videoRef.current?.getDuration())}</span>
+          <span className="text-white/80 font-medium">
+            {' '}
+            / {formatTime(videoRef.current?.getDuration())}
+          </span>
         </div>
       </div>
     </div>
