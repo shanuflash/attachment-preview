@@ -1,17 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import { downloadSrcAsFile } from '../common/helpers';
-import ImageLoader from '../common/ImageLoader';
 
 const Unsupported = ({ data = {}, handleDownload }) => {
   return (
-    <div
-      className="flex justify-center items-center h-full w-full relative bg-cover bg-center"
-      style={{
-        backgroundImage:
-          'url(https://ss-staging-public.s3.us-east-1.amazonaws.com/static/ticket-management/unsupported-file.webp)',
-      }}
-    >
+    <div className="flex justify-center items-center h-full w-full relative bg-cover bg-center">
       <div className="flex flex-col items-center w-1/2">
         <h2 className="text-white text-2xl font-bold text-center leading-tight">
           {data?.name}

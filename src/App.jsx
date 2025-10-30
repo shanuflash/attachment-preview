@@ -53,9 +53,9 @@ const testVideos = [
   },
   {
     id: generateId(),
-    name: 'sample-mov.mov',
-    type: 'video/quicktime',
-    url: 'https://s3-figma-videos-production-sig.figma.com/video/869838795205329595/TEAM/ebf4/434e/-4380-471f-9798-8bfcfcd5349c?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=eHztiQYKxVfCKp1T~~FjaLIyWI8F5N27MXutA7wxnWfxqqAzXQpl2UQAx7R9EGphnxe3euU2AFcyAKvkukkb5bY8B3GqUFK2njdeeNrSYn9tpg32lQxXU7m08JdgMvw3ww6GnRIKmu3x6TuTFVQkdT4Uf8LN5s2HyzlVrYdtQvLN4th9b3DsNX8WbOqYo42fa-KMMXXGdcv56HdN5YXIrrlGXUltDj11bz~xsp3FTgabMhDN~418iX~s5j9KpkyV0moNn7cEVvc7GUJq-nubWItBw~pADrSF50OFm75EQ0DYBnIMNN73SolVKtkHbghk4MNEb0Xtyxez1US43eSaCQ__',
+    name: 'sample-mp4-3.mp4',
+    type: 'video/mp4',
+    url: 'https://ss-staging-public.s3.amazonaws.com/ss-attachment-test/sample-mp4-3.mp4',
   },
 ];
 

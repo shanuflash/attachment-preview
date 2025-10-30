@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import File from './common/File';
+import File from './common/file';
 import Preview from './Preview';
 
 /**
@@ -25,13 +25,6 @@ const Attachments = ({
   const [activeId, setActiveId] = useState(0);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    // preload unsupported background image
-    const img = new Image();
-    img.src =
-      'https://ss-staging-public.s3.us-east-1.amazonaws.com/static/ticket-management/unsupported-file.webp';
-  }, []);
 
   if (!files.length) return null;
 

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
 const TrackBar = ({ setCurrent, total }) => {
   const progressBarRef = useRef(null);

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -123,7 +123,7 @@ const Video = ({ data = {} }) => {
         )}
         <ReactPlayer
           ref={videoRef}
-          url={data?.url}
+          src={data?.url}
           config={{
             file: {
               attributes: {
@@ -154,14 +154,14 @@ const Video = ({ data = {} }) => {
           style={{ filter: 'blur(100px)' }}
         />
       </div>
-      <div className="absolute z-10 bottom-0 left-0 w-full h-20 px-10 py-6 flex items-center gap-4 bg-gradient-to-t from-black/60 to-transparent">
+      <div className="absolute z-10 bottom-0 left-0 w-full h-20 px-10 py-6 flex items-center gap-4 bg-linear-to-t from-black/60 to-transparent">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="flex-shrink-0 text-white hover:bg-white/10"
+                className="shrink-0 text-white hover:bg-white/10"
                 onClick={handlePlayPause}
               >
                 {controls.playing ? (
@@ -185,11 +185,11 @@ const Video = ({ data = {} }) => {
           className="flex-1"
         />
 
-        <div className="flex-shrink-0 pl-2 text-white text-sm font-bold">
+        <div className="shrink-0 pl-2 text-white text-sm font-bold">
           <span>{formatTime(valueRef.current.playedSeconds)}</span>
           <span className="text-white/80 font-medium">
             {' '}
-            / {formatTime(videoRef.current?.getDuration())}
+            / {formatTime(valueRef.current.duration)}
           </span>
         </div>
       </div>

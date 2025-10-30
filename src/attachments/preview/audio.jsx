@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Download } from 'lucide-react';
 import { AudioVisualizer } from 'react-audio-visualize';
 import { downloadSrcAsFile, formatTime } from '../common/helpers';
@@ -150,8 +150,16 @@ const Audio = ({ data = {}, handleDownload, small = false }) => {
         ${small ? 'p-4' : 'p-7 px-6'}
         [&_#file-info]:absolute [&_#file-info]:top-1 [&_#file-info]:left-24 [&_#file-info]:transition-opacity [&_#file-info]:duration-200 [&_#file-info]:pointer-events-auto
         [&_#visualizer]:absolute [&_#visualizer]:top-1 [&_#visualizer]:left-24 [&_#visualizer]:opacity-0 [&_#visualizer]:pointer-events-none [&_#visualizer]:transition-opacity [&_#visualizer]:duration-300
-        ${small ? '[&_#file-info]:w-56 [&_#visualizer]:w-56' : '[&_#file-info]:w-[214px] [&_#visualizer]:w-[214px]'}
-        ${controls?.playing ? '[&_#sparrow-attachments-thumbnail-actions]:opacity-100 [&_#file-info]:opacity-0 [&_#file-info]:pointer-events-none [&_#visualizer]:opacity-100 [&_#visualizer]:pointer-events-auto' : ''}
+        ${
+          small
+            ? '[&_#file-info]:w-56 [&_#visualizer]:w-56'
+            : '[&_#file-info]:w-[214px] [&_#visualizer]:w-[214px]'
+        }
+        ${
+          controls?.playing
+            ? '[&_#sparrow-attachments-thumbnail-actions]:opacity-100 [&_#file-info]:opacity-0 [&_#file-info]:pointer-events-none [&_#visualizer]:opacity-100 [&_#visualizer]:pointer-events-auto'
+            : ''
+        }
         hover:border-gray-900/15 hover:shadow-[0px_4px_8px_0px_#0000000D] hover:[&_#sparrow-attachments-thumbnail-actions]:opacity-100`}
     >
       <div className="flex items-center justify-between gap-6 grow relative">

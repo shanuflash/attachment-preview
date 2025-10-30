@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
@@ -32,7 +32,9 @@ const Image = ({ data }) => {
       imageScale = Math.min(containerHeight / imageHeight, 1);
       setDefaultScale(imageScale);
     }
-    imageRef.current.style.transform = `translate3d(${position?.x ?? 0}px, ${position?.y ?? 0}px, 0px) scale(${imageScale})`;
+    imageRef.current.style.transform = `translate3d(${position?.x ?? 0}px, ${
+      position?.y ?? 0
+    }px, 0px) scale(${imageScale})`;
     setScale(imageScale);
     setIsZoomed(isZoomed);
     setTimeout(() => {
