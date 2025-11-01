@@ -20,18 +20,18 @@ const Header = ({
   return (
     <div
       className={cn(
-        'z-10 h-18 px-8 py-6 w-full absolute top-0 flex justify-between items-center',
+        'z-100 px-6 py-4 w-full absolute top-0 flex justify-between items-center',
         isPdf
-          ? 'bg-neutral-800'
-          : 'bg-gradient-to-b from-black/50 to-transparent'
+          ? 'bg-neutral-900/95'
+          : 'bg-linear-to-b from-black/70 via-black/40 to-transparent'
       )}
     >
-      <div className="flex gap-4 items-center">
-        <div className="flex flex-col text-white">
+      <div className="flex gap-4 items-center min-w-0">
+        <div className="flex flex-col text-white min-w-0">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <h4 className="font-bold text-sm cursor-pointer hover:underline max-w-md truncate">
+                <h4 className="font-normal text-sm cursor-pointer hover:text-white/70 transition-colors max-w-md truncate">
                   {currentData?.name}
                 </h4>
               </TooltipTrigger>
@@ -40,21 +40,20 @@ const Header = ({
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <p className="text-xs text-white/70">
+          <p className="text-[11px] text-white/50 mt-0.5">
             {currentData?.name?.split('.')?.pop().toUpperCase()}
           </p>
         </div>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex gap-2 shrink-0">
         {showDownload && (
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant="ghost"
                   size="icon"
-                  className="h-10 w-10 rounded-lg bg-white/10 hover:bg-white/20 text-white"
+                  className="h-9 w-9 rounded-lg bg-black/60 hover:bg-black/80 backdrop-blur-sm text-white/90 hover:text-white transition-all active:scale-[0.97]"
                   onClick={() => {
                     if (handleDownload) {
                       handleDownload(currentData);
@@ -63,7 +62,7 @@ const Header = ({
                     }
                   }}
                 >
-                  <Download className="h-5 w-5" />
+                  <Download className="h-4 w-4" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>Download</TooltipContent>
@@ -74,12 +73,11 @@ const Header = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant="ghost"
                 size="icon"
-                className="h-10 w-10 rounded-lg bg-white/10 hover:bg-white/20 text-white"
+                className="h-9 w-9 rounded-lg bg-black/60 hover:bg-black/80 backdrop-blur-sm text-white/90 hover:text-white transition-all active:scale-[0.97]"
                 onClick={onClose}
               >
-                <X className="h-5 w-5" />
+                <X className="h-4 w-4" />
               </Button>
             </TooltipTrigger>
             <TooltipContent>Close</TooltipContent>

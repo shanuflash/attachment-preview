@@ -15,7 +15,7 @@ const IconWrapper = ({ children, color = '#6366f1', size = 40 }) => (
     style={{
       width: size,
       height: size,
-      backgroundColor: `${color}15`,
+      backgroundColor: `${color}30`,
     }}
   >
     {children}

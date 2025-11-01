@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import File from './common/file';
-import Preview from './Preview';
+import Preview from './preview';
 
 /**
  * Attachments component for displaying file attachments
@@ -58,7 +58,7 @@ const Attachments = ({
         )}
       >
         {!isCollapsed && (
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex gap-2 flex-wrap">
             {files.map((item) => (
               <File
                 key={item.id}

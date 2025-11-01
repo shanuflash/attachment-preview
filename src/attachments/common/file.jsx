@@ -48,7 +48,6 @@ const File = ({ attachment, setOpen, handleDownload }) => {
 
   useEffect(() => {
     const text = fileNameRef.current;
-
     if (text) {
       setIsOverflow(text.scrollWidth > text.clientWidth);
     }
@@ -56,23 +55,23 @@ const File = ({ attachment, setOpen, handleDownload }) => {
 
   return (
     <div
-      className="group flex gap-4 cursor-pointer transition-all h-[58px] w-[320px] border border-border bg-card rounded-xl px-4 overflow-hidden hover:border-primary hover:shadow-md items-center"
+      className="group flex gap-3 cursor-pointer transition-all h-12 w-[300px] border border-border bg-card/50 backdrop-blur-sm rounded-xl px-4 overflow-hidden hover:bg-card hover:shadow-lg hover:border-primary/30 items-center active:scale-[0.97]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       onClick={() => {
         setOpen(attachment?.id);
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="shrink-0 h-10 w-10 rounded-lg flex items-center justify-center">
-        {getFileIcon(attachment)}
+      <div className="shrink-0 h-7 w-7 rounded-full flex items-center justify-center">
+        {getFileIcon(attachment, 28)}
       </div>
 
-      <div className="flex flex-1 items-center min-w-0">
+      <div className="flex flex-1 min-w-0 items-center gap-2 transition-all duration-200">
         <Tooltip delayDuration={300}>
           <TooltipTrigger asChild>
             <h4
               ref={fileNameRef}
-              className="font-bold text-foreground whitespace-nowrap overflow-hidden text-ellipsis"
+              className="font-medium text-sm text-foreground whitespace-nowrap overflow-hidden text-ellipsis flex-1 transition-all duration-200"
             >
               {attachment.name}
             </h4>
@@ -83,16 +82,14 @@ const File = ({ attachment, setOpen, handleDownload }) => {
             </TooltipContent>
           )}
         </Tooltip>
-      </div>
 
-      <div className="flex items-center">
         {isHovered && (
           <Tooltip delayDuration={300}>
             <TooltipTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 shrink-0"
+                className="h-7 w-7 shrink-0 active:scale-[0.97] rounded-full opacity-60 hover:opacity-100 transition-opacity duration-150 animate-in fade-in"
                 onClick={(e) => {
                   e.stopPropagation();
                   if (handleDownload) {
@@ -102,10 +99,10 @@ const File = ({ attachment, setOpen, handleDownload }) => {
                   }
                 }}
               >
-                <Download className="h-5 w-5" />
+                <Download className="h-3.5 w-3.5" />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Download file</TooltipContent>
+            <TooltipContent>Download</TooltipContent>
           </Tooltip>
         )}
       </div>

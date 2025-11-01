@@ -8,7 +8,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Header from './components/Header';
+import Header from './components/header';
 
 import Image from './Image';
 import Video from './video';
@@ -57,15 +57,16 @@ const Preview = ({
     <Dialog open onOpenChange={(open) => !open && onClose()}>
       <DialogContent
         className={cn(
-          'max-w-[90vw] min-h-[90vh] h-[90vh] p-0 rounded-2xl overflow-hidden border-none',
+          'w-[90vw]! h-[90vh]! max-w-[90vw]! p-0 rounded-2xl overflow-hidden border-none outline-none',
           fileType === previewTypes.pdf ? 'bg-gray-500' : 'bg-black'
         )}
         onEscapeKeyDown={onClose}
         onPointerDownOutside={onClose}
         onOpenAutoFocus={(e) => e.preventDefault()}
+        showCloseButton={false}
       >
         <div
-          className="h-full w-full relative flex justify-center items-center"
+          className="h-full w-full relative flex justify-center items-center overflow-hidden"
           ref={containerRef}
         >
           <Header
@@ -87,18 +88,18 @@ const Preview = ({
           </>
           <>
             {prevFileExists && (
-              <div className="z-10 absolute left-12">
+              <div className="z-10 absolute left-6">
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
                         size="icon"
-                        className="h-12 w-12 rounded-full bg-white hover:bg-white/90 text-foreground shadow-lg"
+                        className="h-10 w-10 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm text-white/90 hover:text-white transition-all active:scale-[0.97]"
                         onClick={() => {
                           setCurrentData(data[prevFileIndex]);
                         }}
                       >
-                        <ChevronLeft className="h-8 w-8" strokeWidth={1.8} />
+                        <ChevronLeft className="h-6 w-6" strokeWidth={2} />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>Previous</TooltipContent>
@@ -107,18 +108,18 @@ const Preview = ({
               </div>
             )}
             {nextFileExists && (
-              <div className="z-10 absolute right-12">
+              <div className="z-10 absolute right-6">
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
                         size="icon"
-                        className="h-12 w-12 rounded-full bg-white hover:bg-white/90 text-foreground shadow-lg"
+                        className="h-10 w-10 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm text-white/90 hover:text-white transition-all active:scale-[0.97]"
                         onClick={() => {
                           setCurrentData(data[nextFileIndex]);
                         }}
                       >
-                        <ChevronRight className="h-8 w-8" strokeWidth={1.8} />
+                        <ChevronRight className="h-6 w-6" strokeWidth={2} />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>Next</TooltipContent>

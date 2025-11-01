@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
@@ -143,24 +143,24 @@ const Image = ({ data }) => {
           backgroundSize: 'cover',
         }}
       />
-      <div className="absolute z-10 bottom-8 left-8 flex items-center justify-center border border-white/50 rounded-lg overflow-hidden">
+      <div className="absolute z-10 bottom-6 left-6 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm rounded-lg px-2 py-1.5">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-none bg-transparent hover:bg-white/10 text-white"
+                className="h-7 w-7 rounded-md bg-white/5 hover:bg-white/15 text-white/90 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.97]"
                 disabled={scale === defaultScale}
                 onClick={() => handleZoomOut()}
               >
-                <Minus className="h-5 w-5" />
+                <Minus className="h-4 w-4" />
               </Button>
             </TooltipTrigger>
             <TooltipContent>Zoom out</TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <span className="text-center w-12 text-white text-sm">
+        <span className="text-center min-w-12 text-white/90 text-xs font-medium">
           {Math.round(scale * 100)}%
         </span>
         <TooltipProvider>
@@ -169,11 +169,11 @@ const Image = ({ data }) => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-none bg-transparent hover:bg-white/10 text-white"
+                className="h-7 w-7 rounded-md bg-white/5 hover:bg-white/15 text-white/90 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.97]"
                 disabled={scale === 2}
                 onClick={() => handleZoomIn()}
               >
-                <Plus className="h-5 w-5" />
+                <Plus className="h-4 w-4" />
               </Button>
             </TooltipTrigger>
             <TooltipContent>Zoom in</TooltipContent>
