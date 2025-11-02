@@ -15,9 +15,9 @@ node_modules/
 .gitignore
 
 # Demo/test files
-index.html
-public/
+demo/
 dist/vite.svg
+*.tgz
 
 # Documentation (keep README)
 *.md

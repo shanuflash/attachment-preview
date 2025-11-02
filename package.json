@@ -16,11 +16,10 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "cd demo && npm run dev",
     "build": "vite build",
-    "build:lib": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build:demo": "cd demo && npm run build",
+    "lint": "eslint ."
   },
   "keywords": [
     "react",
@@ -37,9 +36,9 @@
     "type": "git",
     "url": "https://github.com/shanuflash/react-attachment-kit"
   },
-  "homepage": "https://github.com/yourusername/react-attachment-kit#readme",
+  "homepage": "https://github.com/shanuflash/react-attachment-kit#readme",
   "bugs": {
-    "url": "https://github.com/yourusername/react-attachment-kit/issues"
+    "url": "https://github.com/shanuflash/react-attachment-kit/issues"
   },
   "peerDependencies": {
     "media-chrome": "^4.15.1",
