@@ -58,7 +58,7 @@ const Preview = ({
       <DialogContent
         className={cn(
           'w-[90vw]! h-[90vh]! max-w-[90vw]! p-0 rounded-2xl overflow-hidden border-none outline-none',
-          fileType === previewTypes.pdf ? 'bg-gray-500' : 'bg-black'
+          fileType === previewTypes.pdf ? 'bg-gray-800' : 'bg-black'
         )}
         onEscapeKeyDown={onClose}
         onPointerDownOutside={onClose}

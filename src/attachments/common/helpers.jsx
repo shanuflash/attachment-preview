@@ -6,9 +6,11 @@ export const getAttachmentType = (type) => {
     itemType = previewTypes.image;
   } else if (type.includes(fileTypes.video)) {
     itemType = previewTypes.video;
-  } else if (type.includes(fileTypes.audio)) {
-    itemType = previewTypes.audio;
-  } else if (type === fileTypes.pdf) {
+  }
+  //  else if (type.includes(fileTypes.audio)) {
+  //   itemType = previewTypes.audio;
+  // }
+  else if (type === fileTypes.pdf) {
     itemType = previewTypes.pdf;
   }
   return itemType;

@@ -1,146 +1,173 @@
-import { useEffect, useRef, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
-import PasswordModal from './components/PasswordModal';
-
+import { useState, useEffect } from 'react';
 import { pdfjs, Document, Page, Thumbnail } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
+import { Loader2, Lock } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
   import.meta.url
 ).toString();
 
-const PageWrapper = ({
-  loading = true,
-  key = '',
-  pageNumber = 1,
-  width = 800,
-  setPageNumber,
-}) => {
-  const { ref, inView } = useInView({
-    threshold: 0.5,
-  });
-
-  useEffect(() => {
-    if (!inView && loading) return;
-    setPageNumber(pageNumber);
-  }, [loading, pageNumber, inView]);
-
-  return (
-    <div ref={ref}>
-      <Page key={key} pageNumber={pageNumber} width={width} />
-    </div>
-  );
-};
-
-const Pdf = ({ data = {}, onClose = () => {} }) => {
-  const passwordRef = useRef({
-    value: '',
-    callback: () => {},
-  });
-
-  const [numPages, setNumPages] = useState();
+const Pdf = ({ data = {} }) => {
+  const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [passwordModal, setPasswordModal] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-
-  const onDocumentLoadSuccess = ({ numPages: nextNumPages }) => {
-    setNumPages(nextNumPages);
-    setLoading(false);
-  };
+  const [passwordState, setPasswordState] = useState({
+    isOpen: false,
+    hasError: false,
+    value: '',
+    callback: null,
+  });
 
   useEffect(() => {
-    const thumbnail = document?.getElementById(`pdf-thumbnail-${pageNumber}`);
-    thumbnail?.scrollIntoView({ block: 'nearest' });
-  }, [pageNumber]);
+    setPasswordState({
+      isOpen: false,
+      hasError: false,
+      value: '',
+      callback: null,
+    });
+    setNumPages(null);
+    setPageNumber(1);
+  }, [data?.id, data?.url]);
 
-  useEffect(() => {
-    if (loading) return;
-    setTimeout(() => {
-      setPageNumber(1);
-    }, 500);
-  }, [loading, numPages]);
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+    setPageNumber(1);
+  }
+
+  function onThumbnailClick({ pageNumber: clickedPage }) {
+    setPageNumber(clickedPage);
+    const pageElement = document.querySelector(
+      `.react-pdf__Page[data-page-number="${clickedPage}"]`
+    );
+    if (pageElement) {
+      pageElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 
   return (
-    <div className="flex justify-center h-full w-full relative">
-      <PasswordModal
-        {...{
-          passwordModal,
-          setPasswordModal,
-          passwordRef,
-          passwordError,
-          setPasswordError,
-          onClose,
-        }}
-      />
-      <div className="flex items-center flex-col w-full">
-        <div className="relative h-full w-full [&_.react-pdf__Document]:w-full [&_.react-pdf__Document]:h-full [&_.react-pdf__Document]:flex [&_.react-pdf__Document]:flex-col [&_.react-pdf__Document]:items-center [&_.react-pdf__Page]:my-4 [&_.react-pdf__Page_*]:font-[initial]! [&_.react-pdf__message]:p-10 [&_.react-pdf__Thumbnail_*]:font-[initial]!">
-          <Document
-            file={data?.url}
-            onLoadSuccess={onDocumentLoadSuccess}
-            error="Failed to load PDF"
-            onPassword={(callback, reason) => {
-              setPasswordModal(true);
-              passwordRef.current.callback = callback;
-              if (reason === 2) setPasswordError(true);
+    <div className="w-full h-full flex relative">
+      {passwordState.isOpen && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-neutral-900 text-white p-8 w-[465px] rounded-2xl shadow-2xl border border-white/10">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (passwordState.callback) {
+                passwordState.callback(passwordState.value);
+              }
+              setPasswordState((prev) => ({
+                ...prev,
+                isOpen: false,
+                hasError: false,
+              }));
             }}
-            loading={
-              <div
-                id="pdf-viewer-loader"
-                className="flex items-center justify-center absolute z-3 h-full"
-              >
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-              </div>
-            }
           >
-            <div className="flex h-full w-full pt-1 gap-18">
-              <div className="flex flex-col shrink-0 gap-12 pt-44 px-4 pl-12.5 scroll-pt-44 scroll-pb-10 overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden">
-                {Array.from(new Array(numPages), (_el, index) => (
-                  <div
-                    key={`thumbnail-${index + 1}`}
-                    id={`pdf-thumbnail-${index + 1}`}
-                    className={`flex flex-col items-center gap-3 [&_.react-pdf__Thumbnail]:border-3 [&_.react-pdf__Thumbnail]:border-transparent ${
-                      pageNumber === index + 1
-                        ? '[&_.react-pdf__Thumbnail]:border-primary!'
-                        : ''
-                    }`}
-                  >
-                    <Thumbnail
-                      key={`page_${index + 1}`}
-                      pageNumber={index + 1}
-                      width={156}
-                      onItemClick={({ pageNumber }) => {
-                        const page = document?.querySelector(
-                          `.react-pdf__Page[data-page-number="${pageNumber}"]`
-                        );
-                        if (!page) return;
-                        page.scrollIntoView({ behavior: 'instant' });
-                        setPageNumber(pageNumber);
-                      }}
-                    />
-                    <h4 className="font-bold text-white">{index + 1}</h4>
-                  </div>
-                ))}
+            <div className="flex flex-col items-center">
+              <div className="h-12 w-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                <Lock className="h-6 w-6 text-white/90" />
               </div>
-              <div className="flex flex-col gap-2 scroll-pt-40 pt-40 mx-auto overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden">
-                <div className="flex flex-col">
-                  {Array.from(new Array(numPages), (_el, index) => (
-                    <PageWrapper
-                      loading={loading}
-                      key={`page_${index + 1}`}
-                      pageNumber={index + 1}
-                      width={800}
-                      setPageNumber={setPageNumber}
-                    />
-                  ))}
-                </div>
+              <h3 className="text-lg font-semibold mt-6">Password Protected</h3>
+              <p className="text-sm text-white/60 mt-1">
+                This PDF is password protected. Please enter the password to
+                view.
+              </p>
+              <div className="w-full mt-6">
+                <Input
+                  type="password"
+                  placeholder="Enter password"
+                  autoFocus
+                  value={passwordState.value}
+                  className={`h-11 bg-white/10 border-white/20 text-white placeholder:text-white/40 focus-visible:ring-white/30 ${
+                    passwordState.hasError
+                      ? 'border-red-500 focus-visible:ring-red-500/30'
+                      : ''
+                  }`}
+                  onChange={(e) => {
+                    setPasswordState((prev) => ({
+                      ...prev,
+                      value: e.target.value,
+                      hasError: false,
+                    }));
+                  }}
+                />
+                {passwordState.hasError && (
+                  <p className="text-red-400 text-xs mt-2">
+                    Incorrect password. Please try again.
+                  </p>
+                )}
               </div>
             </div>
-          </Document>
+            <div className="mt-8">
+              <Button
+                type="submit"
+                className="w-full h-11 bg-white text-neutral-900 hover:bg-white/90 transition-all active:scale-[0.97]"
+              >
+                Submit
+              </Button>
+            </div>
+          </form>
         </div>
-      </div>
+      )}
+
+      <Document
+        file={data?.url}
+        onLoadSuccess={onDocumentLoadSuccess}
+        onPassword={(callback, reason) => {
+          setPasswordState({
+            isOpen: true,
+            hasError: reason === 2,
+            value: '',
+            callback,
+          });
+        }}
+        loading={
+          <div className="flex items-center justify-center w-full h-full">
+            <Loader2 className="h-12 w-12 animate-spin" />
+          </div>
+        }
+        error={
+          <div className="flex items-center justify-center w-full h-full text-white">
+            <p>Failed to load PDF file.</p>
+          </div>
+        }
+        className="w-full h-full flex [&_.react-pdf__message]:w-full"
+      >
+        <div className="shrink-0 w-52 h-full overflow-y-auto overflow-x-hidden bg-gray-800 p-4 space-y-4 pt-20 pb-4 scroll-pt-44 scroll-pb-10 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-400 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb:hover]:bg-gray-300">
+          {numPages &&
+            Array.from(new Array(numPages), (_, index) => (
+              <div
+                key={`thumb_${index + 1}`}
+                className={`cursor-pointer border-2 transition-colors ${
+                  pageNumber === index + 1
+                    ? 'border-primary'
+                    : 'border-transparent hover:border-gray-400'
+                }`}
+                onClick={() => onThumbnailClick({ pageNumber: index + 1 })}
+              >
+                <Thumbnail pageNumber={index + 1} width={160} />
+                <p className="text-center text-white text-sm mt-1">
+                  {index + 1}
+                </p>
+              </div>
+            ))}
+        </div>
+
+        <div className="flex-1 h-full overflow-y-auto overflow-x-hidden bg-gray-700 flex flex-col items-center py-8 px-4 pt-20 pb-4 scroll-pt-44 scroll-pb-10 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-400 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb:hover]:bg-gray-300">
+          {numPages &&
+            Array.from(new Array(numPages), (_, index) => (
+              <div key={`page_${index + 1}`} className="mb-4">
+                <Page
+                  pageNumber={index + 1}
+                  width={Math.min(800, window.innerWidth - 250)}
+                  renderTextLayer={true}
+                  renderAnnotationLayer={true}
+                />
+              </div>
+            ))}
+        </div>
+      </Document>
     </div>
   );
 };
