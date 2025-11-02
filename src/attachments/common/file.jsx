@@ -5,8 +5,8 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { Button } from '@/components/ui/button';
+} from '../ui/tooltip';
+import { Button } from '../ui/button';
 import { AttachmentIcons } from './icons';
 import ImageLoader from './imageloader';
 import { fileTypes } from './constants';

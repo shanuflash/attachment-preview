@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '../lib/utils';
 
 const ImageLoader = ({ src, className, ...rest }) => {
   const [isLoading, setIsLoading] = useState(true);

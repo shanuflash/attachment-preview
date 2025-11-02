@@ -4,7 +4,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from '../../ui/tooltip';
 
 const FileTooltip = ({ children, currentData }) => {
   const formatBytes = useCallback(

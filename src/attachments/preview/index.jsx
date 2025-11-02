@@ -1,22 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Dialog, DialogContent } from '../ui/dialog';
+import { Button } from '../ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Header from './components/header';
 
-import Image from './Image';
+import Image from './image';
 import Video from './video';
 import Pdf from './pdf';
 import Unsupported from './unsupported';
 import { getAttachmentType } from '../common/helpers';
 import { previewTypes } from '../common/constants';
-import { cn } from '@/lib/utils';
+import { cn } from '../lib/utils';
 
 const Preview = ({
   data = [],
@@ -89,42 +83,28 @@ const Preview = ({
           <>
             {prevFileExists && (
               <div className="z-10 absolute left-6">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        size="icon"
-                        className="h-10 w-10 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm text-white/90 hover:text-white transition-all active:scale-[0.97]"
-                        onClick={() => {
-                          setCurrentData(data[prevFileIndex]);
-                        }}
-                      >
-                        <ChevronLeft className="h-6 w-6" strokeWidth={2} />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>Previous</TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                <Button
+                  size="icon"
+                  className="h-10 w-10 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm text-white/90 hover:text-white transition-all active:scale-[0.97]"
+                  onClick={() => {
+                    setCurrentData(data[prevFileIndex]);
+                  }}
+                >
+                  <ChevronLeft className="h-6 w-6" strokeWidth={2} />
+                </Button>
               </div>
             )}
             {nextFileExists && (
               <div className="z-10 absolute right-6">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        size="icon"
-                        className="h-10 w-10 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm text-white/90 hover:text-white transition-all active:scale-[0.97]"
-                        onClick={() => {
-                          setCurrentData(data[nextFileIndex]);
-                        }}
-                      >
-                        <ChevronRight className="h-6 w-6" strokeWidth={2} />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>Next</TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                <Button
+                  size="icon"
+                  className="h-10 w-10 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm text-white/90 hover:text-white transition-all active:scale-[0.97]"
+                  onClick={() => {
+                    setCurrentData(data[nextFileIndex]);
+                  }}
+                >
+                  <ChevronRight className="h-6 w-6" strokeWidth={2} />
+                </Button>
               </div>
             )}
           </>

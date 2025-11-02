@@ -3,8 +3,8 @@ import {
   Avatar as ShadcnAvatar,
   AvatarFallback,
   AvatarImage,
-} from '@/components/ui/avatar';
-import { cn } from '@/lib/utils';
+} from '../ui/avatar';
+import { cn } from '../lib/utils';
 
 export const avatarColors = [
   { bg: '#F4BEB44D', text: '#AB857E' },

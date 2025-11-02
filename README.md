@@ -13,14 +13,24 @@ It features specialized viewers for different file types:
 
 ## Installation
 
+Install the package along with its peer dependencies:
+
 ```bash
-npm install react-attachment-kit
+npm install react-attachment-kit react-pdf react-intersection-observer media-chrome
 ```
+
+**Requirements:**
+
+- React 18.3.1 or higher
+- No Tailwind CSS installation required (styles are included)
 
 ## Usage
 
+Import the component and its styles:
+
 ```jsx
 import Attachments from 'react-attachment-kit';
+import 'react-attachment-kit/dist/style.css';
 
 function App() {
   const files = [
@@ -41,6 +51,8 @@ function App() {
   return <Attachments files={files} collapsible />;
 }
 ```
+
+**Important:** Make sure to import the CSS file (`'react-attachment-kit/dist/style.css'`) for the component to display correctly.
 
 ## Props
 
@@ -117,7 +129,28 @@ const customDownload = (file) => {
 
 ## Styling
 
-Built with Tailwind CSS and Radix UI. The component respects your theme configuration and includes both light and dark mode support.
+Built with Tailwind CSS and Radix UI. All styles are self-contained and scoped to avoid conflicts with your application's styles.
+
+**Key Features:**
+
+- ✅ No Tailwind CSS installation required in your project
+- ✅ All CSS variables are prefixed with `rak-` to prevent conflicts
+- ✅ Styles are scoped to `.attachment-preview` class
+- ✅ Works with any CSS framework or styling solution
+- ✅ Dark theme by default (light theme support coming soon)
+
+**Customization:**
+If you need to customize the appearance, you can override the CSS variables:
+
+```css
+.attachment-preview {
+  --rak-radius: 0.5rem; /* Border radius */
+  --rak-background: #000; /* Background color */
+  --rak-foreground: #fff; /* Text color */
+  --rak-primary: #fff; /* Primary color */
+  /* ... and more */
+}
+```
 
 ## License
 

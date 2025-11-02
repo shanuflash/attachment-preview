@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Download } from 'lucide-react';
-import { AudioVisualizer } from 'react-audio-visualize';
+// import { AudioVisualizer } from 'react-audio-visualize';
 import { downloadSrcAsFile, formatTime } from '../common/helpers';
 import PauseIcon from '../common/icons/pauseicon';
 import PlayIcon from '../common/icons/playicon';
@@ -10,8 +10,8 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { Button } from '@/components/ui/button';
+} from '../ui/tooltip';
+import { Button } from '../ui/button';
 
 const defaultControls = {
   playing: false,
@@ -32,7 +32,7 @@ const Audio = ({ data = {}, handleDownload, small = false }) => {
   const fileNameRef = useRef(null);
   const [isOverflow, setIsOverflow] = useState(false);
 
-  const [blob, setBlob] = useState();
+  // const [blob, setBlob] = useState();
   const [audioElement] = useState(() => new window.Audio());
   const [controls, setControls] = useState({
     ...defaultControls,
@@ -100,7 +100,7 @@ const Audio = ({ data = {}, handleDownload, small = false }) => {
       audioElement.preload = 'metadata';
       audioElement.playbackRate = 1.0;
       audioElement.addEventListener('ended', onAudioEnded);
-      setBlob(blob);
+      // setBlob(blob);
       setBlobLoading(false);
       const audioBuffer = await blob.arrayBuffer();
       const audioContext = new AudioContext();
@@ -223,7 +223,7 @@ const Audio = ({ data = {}, handleDownload, small = false }) => {
                 className="relative"
                 style={{ width: small ? '180px' : '170px' }}
               >
-                <AudioVisualizer
+                {/* <AudioVisualizer
                   blob={blob}
                   width={small ? 180 : 170}
                   height={36}
@@ -232,7 +232,7 @@ const Audio = ({ data = {}, handleDownload, small = false }) => {
                   barColor="#E2E6EB"
                   barPlayedColor="#64748B"
                   currentTime={controls.played}
-                />
+                /> */}
                 <TrackBar
                   total={controls.duration}
                   current={controls.played}

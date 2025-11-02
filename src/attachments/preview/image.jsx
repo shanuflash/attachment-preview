@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '../ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from '../ui/tooltip';
 import { Minus, Plus, Loader2 } from 'lucide-react';
 
 const Image = ({ data }) => {

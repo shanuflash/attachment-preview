@@ -1,5 +1,6 @@
 import React from 'react';
-import Attachments from './attachments';
+import Attachments from 'react-attachment-kit';
+import 'react-attachment-kit/dist/style.css';
 
 // Auto-generate IDs for files
 let fileIdCounter = 0;

@@ -1,14 +1,14 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '../../ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from '../../ui/tooltip';
 import { X, Download } from 'lucide-react';
 import { downloadSrcAsFile } from '../../common/helpers';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 const Header = ({
   currentData = {},

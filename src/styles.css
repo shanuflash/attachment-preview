@@ -1,0 +1,99 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@theme inline {
+  --color-background: var(--rak-background);
+  --color-foreground: var(--rak-foreground);
+  --color-ring: var(--rak-ring);
+  --color-input: var(--rak-input);
+  --color-border: var(--rak-border);
+  --color-destructive: var(--rak-destructive);
+  --color-accent-foreground: var(--rak-accent-foreground);
+  --color-accent: var(--rak-accent);
+  --color-muted-foreground: var(--rak-muted-foreground);
+  --color-muted: var(--rak-muted);
+  --color-secondary-foreground: var(--rak-secondary-foreground);
+  --color-secondary: var(--rak-secondary);
+  --color-primary-foreground: var(--rak-primary-foreground);
+  --color-primary: var(--rak-primary);
+  --color-popover-foreground: var(--rak-popover-foreground);
+  --color-popover: var(--rak-popover);
+  --color-card-foreground: var(--rak-card-foreground);
+  --color-card: var(--rak-card);
+  --radius-sm: calc(var(--rak-radius) - 4px);
+  --radius-md: calc(var(--rak-radius) - 2px);
+  --radius-lg: var(--rak-radius);
+  --radius-xl: calc(var(--rak-radius) + 4px);
+}
+
+/* Scope styles to attachment-preview only */
+.attachment-preview {
+  --rak-radius: 0.65rem;
+  --rak-background: oklch(0.145 0 0);
+  --rak-foreground: oklch(0.985 0 0);
+  --rak-card: oklch(0.205 0 0);
+  --rak-card-foreground: oklch(0.985 0 0);
+  --rak-popover: oklch(0.205 0 0);
+  --rak-popover-foreground: oklch(0.985 0 0);
+  --rak-primary: oklch(0.922 0 0);
+  --rak-primary-foreground: oklch(0.205 0 0);
+  --rak-secondary: oklch(0.269 0 0);
+  --rak-secondary-foreground: oklch(0.985 0 0);
+  --rak-muted: oklch(0.269 0 0);
+  --rak-muted-foreground: oklch(0.708 0 0);
+  --rak-accent: oklch(0.269 0 0);
+  --rak-accent-foreground: oklch(0.985 0 0);
+  --rak-destructive: oklch(0.704 0.191 22.216);
+  --rak-border: oklch(1 0 0 / 10%);
+  --rak-input: oklch(1 0 0 / 15%);
+  --rak-ring: oklch(0.556 0 0);
+}
+
+/* Reset specific problematic styles that might come from global CSS */
+/* Use revert-layer to reset to browser defaults, then our Tailwind classes apply on top */
+.attachment-preview button {
+  all: revert-layer;
+  box-sizing: border-box;
+}
+
+.attachment-preview input,
+.attachment-preview select,
+.attachment-preview textarea {
+  all: revert-layer;
+  box-sizing: border-box;
+}
+
+/* Light theme - commented out for now */
+/* 
+.attachment-preview.light {
+  --rak-background: oklch(1 0 0);
+  --rak-foreground: oklch(0.145 0 0);
+  --rak-card: oklch(1 0 0);
+  --rak-card-foreground: oklch(0.145 0 0);
+  --rak-popover: oklch(1 0 0);
+  --rak-popover-foreground: oklch(0.145 0 0);
+  --rak-primary: oklch(0.205 0 0);
+  --rak-primary-foreground: oklch(0.985 0 0);
+  --rak-secondary: oklch(0.97 0 0);
+  --rak-secondary-foreground: oklch(0.205 0 0);
+  --rak-muted: oklch(0.97 0 0);
+  --rak-muted-foreground: oklch(0.556 0 0);
+  --rak-accent: oklch(0.97 0 0);
+  --rak-accent-foreground: oklch(0.205 0 0);
+  --rak-destructive: oklch(0.577 0.245 27.325);
+  --rak-border: oklch(0.922 0 0);
+  --rak-input: oklch(0.922 0 0);
+  --rak-ring: oklch(0.708 0 0);
+}
+*/
+
+/* react-pdf specific styles */
+.react-pdf__Document {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.react-pdf__message {
+  width: 100%;
+}

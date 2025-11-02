@@ -92,6 +92,7 @@ const Video = ({ data = {} }) => {
     <div className="relative h-full w-full flex items-center justify-center">
       <MediaController
         autohide={-1}
+        noAutohide={true}
         className="w-full h-full flex items-center justify-center"
         style={{
           '--media-object-fit': 'contain',
