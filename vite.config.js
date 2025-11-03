@@ -2,9 +2,29 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'path';
+import { copyFileSync, mkdirSync } from 'fs';
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    {
+      name: 'copy-pdf-worker',
+      closeBundle() {
+        const src = resolve(
+          __dirname,
+          'src/attachments/lib/pdf.worker.min.mjs'
+        );
+        const dest = resolve(__dirname, 'dist/pdf.worker.min.mjs');
+        try {
+          copyFileSync(src, dest);
+          console.log('✓ Copied pdf.worker.min.mjs to dist/');
+        } catch (err) {
+          console.error('Failed to copy pdf.worker.min.mjs:', err);
+        }
+      },
+    },
+  ],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.js'),

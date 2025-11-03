@@ -7,9 +7,10 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
+  '../lib/pdf.worker.min.mjs',
   import.meta.url
 ).toString();
+// pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const Pdf = ({ data = {} }) => {
   const [numPages, setNumPages] = useState(null);
